@@ -1,0 +1,65 @@
+[
+  {
+    "title": "Pistol",
+    "range": 1,
+    "dice": 1,
+    "damage": 1,
+    "required": 4,
+    "silent": false,
+    "door": false
+  },
+  {
+    "title": "Rifle",
+    "range": 3,
+    "dice": 1,
+    "damage": 1,
+    "required": 3,
+    "silent": false,
+    "door": false
+  },
+  {
+    "title": "Shotgun",
+    "range": 2,
+    "dice": 2,
+    "damage": 2,
+    "required": 4,
+    "silent": false,
+    "door": false
+  },
+  {
+    "title": "Sawed Off Shotgun",
+    "range": 2,
+    "dice": 2,
+    "damage": 1,
+    "required": 3,
+    "silent": false,
+    "door": false
+  },
+  {
+    "title": "Katana",
+    "range": 0,
+    "dice": 1,
+    "damage": 1,
+    "required": 3,
+    "silent": true,
+    "door": false
+  },
+  {
+    "title": "Fire Axe",
+    "range": 0,
+    "dice": 1,
+    "damage": 1,
+    "required": 4,
+    "silent": false,
+    "door": true
+  },
+  {
+    "title": "Crowbar",
+    "range": 0,
+    "dice": 1,
+    "damage": 1,
+    "required": 4,
+    "silent": true,
+    "door": true
+  }
+]
