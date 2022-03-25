@@ -1,12 +1,39 @@
 [
   {
+    "title": "Bag of Rice",
+    "useless": true,
+    "quantity": 4
+  },
+  {
+    "title": "Cans of Beans",
+    "useless": true,
+    "quantity": 4
+  },
+  {
+    "title": "AGGGH! It's a zombie!",
+    "useless": true,
+    "zombie": true,
+    "quantity": 4
+  },
+  {
+    "title": "Pan",
+    "range": 1,
+    "dice": 1,
+    "damage": 1,
+    "required": 5,
+    "silent": true,
+    "door": false,
+    "quantity": 8
+  },
+  {
     "title": "Pistol",
     "range": 1,
     "dice": 1,
     "damage": 1,
     "required": 4,
     "silent": false,
-    "door": false
+    "door": false,
+    "quantity": 8
   },
   {
     "title": "Rifle",
@@ -15,7 +42,8 @@
     "damage": 1,
     "required": 3,
     "silent": false,
-    "door": false
+    "door": false,
+    "quantity": 6
   },
   {
     "title": "Shotgun",
@@ -24,7 +52,8 @@
     "damage": 2,
     "required": 4,
     "silent": false,
-    "door": false
+    "door": false,
+    "quantity": 6
   },
   {
     "title": "Sawed Off Shotgun",
@@ -33,7 +62,8 @@
     "damage": 1,
     "required": 3,
     "silent": false,
-    "door": false
+    "door": false,
+    "quantity": 4
   },
   {
     "title": "Katana",
@@ -42,7 +72,8 @@
     "damage": 1,
     "required": 3,
     "silent": true,
-    "door": false
+    "door": false,
+    "quantity": 4
   },
   {
     "title": "Fire Axe",
@@ -51,7 +82,8 @@
     "damage": 1,
     "required": 4,
     "silent": false,
-    "door": true
+    "door": true,
+    "quantity": 4
   },
   {
     "title": "Crowbar",
@@ -60,6 +92,17 @@
     "damage": 1,
     "required": 4,
     "silent": true,
-    "door": true
+    "door": true,
+    "quantity": 4
+  },
+  {
+    "title": "Molotov Cocktail",
+    "range": 1,
+    "dice": 0,
+    "damage": 10,
+    "required": 0,
+    "silent": false,
+    "door": false,
+    "quantity": 2
   }
 ]

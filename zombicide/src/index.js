@@ -1,13 +1,19 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import App from './App'
-import AppProvider from './providers/AppProvider';
+import TileProvider from './providers/TileProvider'
+import LootProvider from './providers/LootProvider'
+import PlayersProvider from './providers/PlayersProvider';
 
 ReactDOM.render(
   <React.StrictMode>
-    <AppProvider>
-      <App />
-    </AppProvider>
+    <TileProvider>
+      <PlayersProvider>
+        <LootProvider>
+          <App />
+        </LootProvider>
+      </PlayersProvider>
+    </TileProvider>
   </React.StrictMode>,
   document.getElementById('root')
 )

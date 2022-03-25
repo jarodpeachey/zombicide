@@ -1,0 +1,42 @@
+[
+  {
+    "name": "Josh",
+    "kills": 0,
+    "level": 0,
+    "hand": [],
+    "backpack": [],
+    "active": true
+  },
+  {
+    "name": "Doug",
+    "kills": 0,
+    "level": 0,
+    "hand": [],
+    "backpack": [],
+    "active": true
+  },
+  {
+    "name": "Ned",
+    "kills": 0,
+    "level": 0,
+    "hand": [],
+    "backpack": [],
+    "active": true
+  },
+  {
+    "name": "Jim",
+    "kills": 0,
+    "level": 0,
+    "hand": [],
+    "backpack": [],
+    "active": true
+  },
+  {
+    "name": "Wanda",
+    "kills": 0,
+    "level": 0,
+    "hand": [],
+    "backpack": [],
+    "active": false
+  }
+]
