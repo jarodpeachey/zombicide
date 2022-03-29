@@ -21,7 +21,18 @@ body {
   height: 25px;
   background: orange;
   border-radius: 999px;
+  z-index: 999;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  /* display: none; */
 }
+
+/* .player.visible {
+  display: block;
+} */
 
 .tile {
   background: #e8e8e8;
@@ -123,4 +134,21 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+.tile__players {
+  display: flex;
+  background: #00000010;
+  padding: 4px;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: calc(100% - 4px);
+  height: fit-content;
+  flex-wrap: wrap;
+}
+
+.tile__players .player {
+  margin-right: 4px;
+  margin-bottom: 4px;
 }

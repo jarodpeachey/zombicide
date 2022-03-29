@@ -5,7 +5,8 @@
     "level": 0,
     "hand": [],
     "backpack": [],
-    "active": true
+    "active": true,
+    "tile": 0
   },
   {
     "name": "Doug",
@@ -13,7 +14,8 @@
     "level": 0,
     "hand": [],
     "backpack": [],
-    "active": true
+    "active": true,
+    "tile": 0
   },
   {
     "name": "Ned",
@@ -21,7 +23,8 @@
     "level": 0,
     "hand": [],
     "backpack": [],
-    "active": true
+    "active": true,
+    "tile": 0
   },
   {
     "name": "Jim",
@@ -29,7 +32,8 @@
     "level": 0,
     "hand": [],
     "backpack": [],
-    "active": true
+    "active": true,
+    "tile": 0
   },
   {
     "name": "Wanda",
@@ -37,6 +41,7 @@
     "level": 0,
     "hand": [],
     "backpack": [],
-    "active": false
+    "active": false,
+    "tile": 0
   }
 ]

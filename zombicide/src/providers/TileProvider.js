@@ -1,12 +1,18 @@
+import { useEffect } from 'react'
 import { createContext, useContext, useState } from 'react'
-import tiles from "../data/tiles.json"
+import tileTemplates from '../data/tiles.json'
 
 export const TileContext = createContext({})
 
 export default function TileProvider({ strings, children }) {
+  const [tiles, setTiles] = useState([...tileTemplates])
+  const [playerMoving, setPlayerMoving] = useState(false)
+  const [tileToMoveTo, setTileToMoveTo] = useState(null)
+  const [startTile, setStartTile] = useState(48)
+
   // BASE VARIABLES
   let exitTile = 42
-  let startTile = 48
+  // let startTile = 48
   let spawnTiles = [2, 44, 4, 46]
 
   let buildings = [
@@ -23,69 +29,96 @@ export default function TileProvider({ strings, children }) {
   let tripleLeftRoads = [18]
   let tripleRightRoads = [16]
 
-  // ADD INDEX FOR EACH TILE
-  for (let index = 0; index < 49; index++) {
-    tiles[index].index = index
-  }
+  useEffect(() => {
+    // if (!sessionStorage.getItem('initialized')) {
+      // ADD INDEX FOR EACH TILE
+      for (let index = 0; index < 49; index++) {
+        tileTemplates[index].index = index
+      }
 
-  // GENERATE BUILDING TILES
-  buildings.forEach((building) => {
-    tiles[building].type = 'building'
-    tiles[building].image = Math.floor(Math.random() * (8 - 1 + 1)) + 1
-  })
+      // GENERATE BUILDING TILES
+      buildings.forEach((building) => {
+        tileTemplates[building].type = 'building'
+        tileTemplates[building].image =
+          Math.floor(Math.random() * (8 - 1 + 1)) + 1
+      })
 
-// GENERATE ROAD TILES
-  verticalRoads.forEach((road) => {
-    tiles[road].type = 'road'
-    tiles[road].image = 'vertical'
-  })
+      // GENERATE ROAD TILES
+      verticalRoads.forEach((road) => {
+        tileTemplates[road].type = 'road'
+        tileTemplates[road].image = 'vertical'
+      })
 
-  horizontalRoads.forEach((road) => {
-    tiles[road].type = 'road'
-    tiles[road].image = 'horizontal'
-  })
+      horizontalRoads.forEach((road) => {
+        tileTemplates[road].type = 'road'
+        tileTemplates[road].image = 'horizontal'
+      })
 
-  topRightRoads.forEach((road) => {
-    tiles[road].type = 'road'
-    tiles[road].image = 'right_top'
-  })
+      topRightRoads.forEach((road) => {
+        tileTemplates[road].type = 'road'
+        tileTemplates[road].image = 'right_top'
+      })
 
-  topLeftRoads.forEach((road) => {
-    tiles[road].type = 'road'
-    tiles[road].image = 'left_top'
-  })
+      topLeftRoads.forEach((road) => {
+        tileTemplates[road].type = 'road'
+        tileTemplates[road].image = 'left_top'
+      })
 
-  bottomRightRoads.forEach((road) => {
-    tiles[road].type = 'road'
-    tiles[road].image = 'right_bottom'
-  })
+      bottomRightRoads.forEach((road) => {
+        tileTemplates[road].type = 'road'
+        tileTemplates[road].image = 'right_bottom'
+      })
 
-  bottomLeftRoads.forEach((road) => {
-    tiles[road].type = 'road'
-    tiles[road].image = 'left_bottom'
-  })
+      bottomLeftRoads.forEach((road) => {
+        tileTemplates[road].type = 'road'
+        tileTemplates[road].image = 'left_bottom'
+      })
 
-  tripleLeftRoads.forEach((road) => {
-    tiles[road].type = 'road'
-    tiles[road].image = 'triple_left'
-  })
+      tripleLeftRoads.forEach((road) => {
+        tileTemplates[road].type = 'road'
+        tileTemplates[road].image = 'triple_left'
+      })
 
-  tripleRightRoads.forEach((road) => {
-    tiles[road].type = 'road'
-    tiles[road].image = 'triple_right'
-  })
+      tripleRightRoads.forEach((road) => {
+        tileTemplates[road].type = 'road'
+        tileTemplates[road].image = 'triple_right'
+      })
 
+      // GENERATE SPECIAL TILES
+      spawnTiles.forEach((tile) => {
+        tileTemplates[tile].spawn = true
+      })
 
-  // GENERATE SPECIAL TILES
-  spawnTiles.forEach((tile) => {
-    tiles[tile].spawn = true
-  })
+      tileTemplates[exitTile].exit = true
+      tileTemplates[startTile].start = true
 
-  tiles[exitTile].exit = true
-  tiles[startTile].start = true
+      setTiles([...tileTemplates])
+    // }
+  }, [])
+
+  useEffect(() => {
+    console.log('Player moving: ', playerMoving)
+  }, [playerMoving])
+  useEffect(() => {
+    if (tileToMoveTo) {
+      console.log('Tile to move to: ', tileToMoveTo)
+      setTiles([...tiles, tileToMoveTo])
+    }
+  }, [tileToMoveTo])
 
   return (
-    <TileContext.Provider value={{ tiles: tiles }}>
+    <TileContext.Provider
+      value={{
+        startTile: startTile,
+        tiles: tiles,
+        startTile: startTile,
+        exitTile: exitTile,
+        playerMoving: playerMoving,
+        setPlayerMoving: setPlayerMoving,
+        tileToMoveTo: tileToMoveTo,
+        setTileToMoveTo: setTileToMoveTo,
+      }}
+    >
       {children}
     </TileContext.Provider>
   )
