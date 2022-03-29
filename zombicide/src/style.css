@@ -17,17 +17,25 @@ body {
 }
 
 .player {
-  width: 25px;
-  height: 25px;
-  background: orange;
+  width: 30px;
+  height: 30px;
+  background: red;
   border-radius: 999px;
+  border: 3px solid red;
+  color: white;
   z-index: 999;
   font-size: 12px;
   display: flex;
   align-items: center;
   justify-content: center;
   position: absolute;
+  cursor: pointer;
   /* display: none; */
+}
+
+.player.moving {
+  box-shadow: 1px 1px 40px -10px #00000020;
+  border: 3px solid white;
 }
 
 /* .player.visible {
@@ -42,6 +50,13 @@ body {
   align-items: center;
   justify-content: center;
   box-shadow: 0px 0px 0px 1px #000000;
+}
+.tile.selectable {
+  cursor: pointer;
+  transition: .1s ease;
+}
+.tile.selectable:hover {
+  filter: brightness(50%);
 }
 
 .tile.building {

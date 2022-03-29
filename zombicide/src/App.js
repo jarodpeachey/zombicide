@@ -122,7 +122,7 @@ function App() {
                   top: calculateTop(player),
                 }}
                 id={player.name.toLowerCase()}
-                className={`player ${player.active && 'active'}`}
+                className={`player ${playerToMove && playerToMove.name === player.name ? 'moving' : ''} ${player.active && 'active'}`}
               >
                 {player.name}
               </div>
@@ -135,7 +135,7 @@ function App() {
               if (tile.type === 'road') {
                 return (
                   <div
-                    className={`tile ${tile.spawn && 'spawn'} ${
+                    className={`tile ${playerMoving ? 'selectable' : ''} ${tile.spawn && 'spawn'} ${
                       tile.exit && 'exit'
                     } ${tile.start && 'start'} ${tile.type}`}
                     id={`tile-${tile.index}`}
@@ -172,7 +172,7 @@ function App() {
               } else {
                 return (
                   <div
-                    className={`tile ${tile.type}`}
+                    className={`tile ${playerMoving ? 'selectable' : ''} ${tile.type}`}
                     id={`tile-${tile.index}`}
                     onClick={() => {
                       console.log('CLICKING TILE')
