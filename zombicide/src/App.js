@@ -28,7 +28,8 @@ import { useEffect } from 'react'
 
 function App() {
   const app = useTiles()
-  const { players, playerToMove, activePlayer, playerMoving, setPlayerMoving } = usePlayers()
+  const { players, playerToMove, activePlayer, playerMoving, setPlayerMoving } =
+    usePlayers()
   const { setTileToMoveTo } = useTiles()
 
   const getImage = (path) => {
@@ -158,7 +159,18 @@ function App() {
               <br />
               <h4>ACTIONS</h4>
               <div style={{ display: 'flex' }}>
-                <button className="btn" onClick={() => setPlayerMoving(true)}>Move</button>
+                <button
+                  className="btn"
+                  onClick={() => {
+                    if (playerMoving) {
+                      setPlayerMoving(false)
+                    } else {
+                      setPlayerMoving(true)
+                    }
+                  }}
+                >
+                  {playerMoving ? 'Cancel' : 'Move'}
+                </button>
                 <button className="btn">Search</button>
                 <button className="btn">Attack</button>
                 <button className="btn">End turn</button>

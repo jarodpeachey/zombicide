@@ -49,6 +49,9 @@ export default function PlayersProvider({ strings, children }) {
       console.log('MOVING PLAYER: ', activePlayer)
       tilesProvider.setPlayerMoving(true)
       tilesProvider.setTileToMoveFrom(activePlayer.tile)
+    } else {
+      tilesProvider.setPlayerMoving(false)
+      tilesProvider.setTileToMoveTo(null)
     }
   }, [playerMoving])
 
@@ -59,8 +62,6 @@ export default function PlayersProvider({ strings, children }) {
         { ...activePlayer, tile: tilesProvider.tileToMoveTo },
       ])
       setPlayerMoving(false)
-      tilesProvider.setPlayerMoving(false)
-      tilesProvider.setTileToMoveTo(null)
     }
   }, [tilesProvider.tileToMoveTo])
 
