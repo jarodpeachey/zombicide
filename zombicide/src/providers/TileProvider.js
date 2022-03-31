@@ -8,6 +8,7 @@ export default function TileProvider({ strings, children }) {
   const [tiles, setTiles] = useState([...tileTemplates])
   const [playerMoving, setPlayerMoving] = useState(false)
   const [tileToMoveTo, setTileToMoveTo] = useState(null)
+  const [tileToMoveFrom, setTileToMoveFrom] = useState(null)
   const [startTile, setStartTile] = useState(48)
 
   // BASE VARIABLES
@@ -31,92 +32,106 @@ export default function TileProvider({ strings, children }) {
 
   useEffect(() => {
     // if (!sessionStorage.getItem('initialized')) {
-      // ADD INDEX FOR EACH TILE
-      for (let index = 0; index < 49; index++) {
-        tileTemplates[index].index = index
-      }
+    // ADD INDEX FOR EACH TILE
+    for (let index = 0; index < 49; index++) {
+      tileTemplates[index].index = index
+    }
 
-      // GENERATE BUILDING TILES
-      buildings.forEach((building) => {
-        tileTemplates[building].type = 'building'
-        tileTemplates[building].image =
-          Math.floor(Math.random() * (8 - 1 + 1)) + 1
-      })
+    // GENERATE BUILDING TILES
+    buildings.forEach((building) => {
+      tileTemplates[building].type = 'building'
+      tileTemplates[building].image =
+        Math.floor(Math.random() * (8 - 1 + 1)) + 1
+    })
 
-      // GENERATE ROAD TILES
-      verticalRoads.forEach((road) => {
-        tileTemplates[road].type = 'road'
-        tileTemplates[road].image = 'vertical'
-      })
+    // GENERATE ROAD TILES
+    verticalRoads.forEach((road) => {
+      tileTemplates[road].type = 'road'
+      tileTemplates[road].image = 'vertical'
+    })
 
-      horizontalRoads.forEach((road) => {
-        tileTemplates[road].type = 'road'
-        tileTemplates[road].image = 'horizontal'
-      })
+    horizontalRoads.forEach((road) => {
+      tileTemplates[road].type = 'road'
+      tileTemplates[road].image = 'horizontal'
+    })
 
-      topRightRoads.forEach((road) => {
-        tileTemplates[road].type = 'road'
-        tileTemplates[road].image = 'right_top'
-      })
+    topRightRoads.forEach((road) => {
+      tileTemplates[road].type = 'road'
+      tileTemplates[road].image = 'right_top'
+    })
 
-      topLeftRoads.forEach((road) => {
-        tileTemplates[road].type = 'road'
-        tileTemplates[road].image = 'left_top'
-      })
+    topLeftRoads.forEach((road) => {
+      tileTemplates[road].type = 'road'
+      tileTemplates[road].image = 'left_top'
+    })
 
-      bottomRightRoads.forEach((road) => {
-        tileTemplates[road].type = 'road'
-        tileTemplates[road].image = 'right_bottom'
-      })
+    bottomRightRoads.forEach((road) => {
+      tileTemplates[road].type = 'road'
+      tileTemplates[road].image = 'right_bottom'
+    })
 
-      bottomLeftRoads.forEach((road) => {
-        tileTemplates[road].type = 'road'
-        tileTemplates[road].image = 'left_bottom'
-      })
+    bottomLeftRoads.forEach((road) => {
+      tileTemplates[road].type = 'road'
+      tileTemplates[road].image = 'left_bottom'
+    })
 
-      tripleLeftRoads.forEach((road) => {
-        tileTemplates[road].type = 'road'
-        tileTemplates[road].image = 'triple_left'
-      })
+    tripleLeftRoads.forEach((road) => {
+      tileTemplates[road].type = 'road'
+      tileTemplates[road].image = 'triple_left'
+    })
 
-      tripleRightRoads.forEach((road) => {
-        tileTemplates[road].type = 'road'
-        tileTemplates[road].image = 'triple_right'
-      })
+    tripleRightRoads.forEach((road) => {
+      tileTemplates[road].type = 'road'
+      tileTemplates[road].image = 'triple_right'
+    })
 
-      // GENERATE SPECIAL TILES
-      spawnTiles.forEach((tile) => {
-        tileTemplates[tile].spawn = true
-      })
+    // GENERATE SPECIAL TILES
+    spawnTiles.forEach((tile) => {
+      tileTemplates[tile].spawn = true
+    })
 
-      tileTemplates[exitTile].exit = true
-      tileTemplates[startTile].start = true
+    tileTemplates[exitTile].exit = true
+    tileTemplates[startTile].start = true
 
-      setTiles([...tileTemplates])
+    setTiles([...tileTemplates])
     // }
   }, [])
 
-  useEffect(() => {
-    console.log('Player moving: ', playerMoving)
-  }, [playerMoving])
+  const isValidMoveAttempt = () => {
+    
+  }
+
+  // useEffect(() => {
+  //   console.log('Player moving: ', playerMoving)
+  // }, [playerMoving])
   useEffect(() => {
     if (tileToMoveTo) {
-      console.log('Tile to move to: ', tileToMoveTo)
-      setTiles([...tiles, tileToMoveTo])
+      if (isValidMoveAttempt()) {
+        console.log('Tile to move to: ', tileToMoveTo)
+
+        setTiles([
+          ...tiles.filter((tile) => tile.index !== tileToMoveTo.index),
+          { ...tileToMoveTo },
+        ])
+      }
     }
   }, [tileToMoveTo])
+
+  useEffect(() => {
+    console.log('TILES: ', tiles)
+  }, [tiles])
 
   return (
     <TileContext.Provider
       value={{
         startTile: startTile,
         tiles: tiles,
-        startTile: startTile,
         exitTile: exitTile,
         playerMoving: playerMoving,
         setPlayerMoving: setPlayerMoving,
         tileToMoveTo: tileToMoveTo,
         setTileToMoveTo: setTileToMoveTo,
+        setTileToMoveFrom: setTileToMoveFrom,
       }}
     >
       {children}

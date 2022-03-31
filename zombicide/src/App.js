@@ -2,7 +2,10 @@
 import React from 'react'
 import { useTiles } from './providers/TileProvider'
 import { usePlayers } from './providers/PlayersProvider'
-import './style.css'
+import './styles/style.css'
+import './styles/control-panel.css'
+import './styles/tiles.css'
+import './styles/players.css'
 import building_1 from './images/building_1.JPG'
 import building_2 from './images/building_2.JPG'
 import building_3 from './images/building_3.JPG'
@@ -25,8 +28,8 @@ import { useEffect } from 'react'
 
 function App() {
   const app = useTiles()
-  const { players, setPlayerToMove, playerToMove } = usePlayers()
-  const { playerMoving, setTileToMoveTo } = useTiles()
+  const { players, playerToMove, activePlayer, playerMoving, setPlayerMoving } = usePlayers()
+  const { setTileToMoveTo } = useTiles()
 
   const getImage = (path) => {
     if (path === 1) return building_1
@@ -60,42 +63,43 @@ function App() {
 
   const calculateLeft = (player) => {
     // if (name !== '') {
-    const playerElement = document.getElementById(
-      `${player.name.toLowerCase()}`
-    )
     const tileElement = document.getElementById(`tile-${player.tile}`)
+    const parentElement = document.getElementById(`tiles`)
 
-    let top = 0
-    let left = 0
+    if (parentElement && tileElement) {
+      let top = 0
+      let left = 0
 
-    if (tileElement) {
-      top = tileElement.getBoundingClientRect().top
-      left = tileElement.getBoundingClientRect().left
+      if (tileElement) {
+        top = tileElement.getBoundingClientRect().top
+        left = tileElement.getBoundingClientRect().left
+      }
+
+      return left || 0
+    } else {
+      return 0
     }
-
-    return left || 0
   }
   const calculateTop = (player) => {
-    // if (name !== '') {
-    const playerElement = document.getElementById(
-      `${player.name.toLowerCase()}`
-    )
     const tileElement = document.getElementById(`tile-${player.tile}`)
+    const parentElement = document.getElementById(`tiles`)
 
-    let top = 0
-    let left = 0
+    if (parentElement && tileElement) {
+      let top = 0
+      let left = 0
 
-    if (tileElement) {
-      top = tileElement.getBoundingClientRect().top
-      left = tileElement.getBoundingClientRect().left
+      if (tileElement) {
+        top = tileElement.getBoundingClientRect().top
+        left = tileElement.getBoundingClientRect().left
+      }
+
+      return top || 0
+    } else {
+      return 0
     }
-
-    return top || 0
   }
 
   useEffect(() => {
-    console.log(players)
-
     players.forEach((player) => {
       document.getElementById(
         `${player.name.toLowerCase()}`
@@ -114,39 +118,72 @@ function App() {
           players.map((player) => {
             return (
               <div
-                onClick={() => {
-                  setPlayerToMove(player)
-                }}
                 style={{
                   left: calculateLeft(player),
                   top: calculateTop(player),
                 }}
                 id={player.name.toLowerCase()}
-                className={`player ${playerToMove && playerToMove.name === player.name ? 'moving' : ''} ${player.active && 'active'}`}
+                className={`player ${
+                  activePlayer && activePlayer.name === player.name
+                    ? 'moving'
+                    : ''
+                }`}
               >
                 {player.name}
               </div>
             )
           })}
-        <div className="tiles">
+        {activePlayer && (
+          <div class="control-panel">
+            <div className="control-panel__inner">
+              <h2>{activePlayer.name}</h2>
+              <p>
+                <strong>Level: </strong>
+                <span style={{ fontSize: 18, marginLeft: 8 }}>
+                  {activePlayer.level}
+                </span>
+              </p>
+              <p>
+                <strong>Kills: </strong>
+                <span style={{ fontSize: 18, marginLeft: 8 }}>
+                  {activePlayer.kills}
+                </span>
+              </p>
+              <p>
+                <strong>Actions remaining: </strong>
+                <span style={{ fontSize: 18, marginLeft: 8 }}>
+                  {activePlayer.actions}
+                </span>
+              </p>
+              <br />
+              <h4>ACTIONS</h4>
+              <div style={{ display: 'flex' }}>
+                <button className="btn" onClick={() => setPlayerMoving(true)}>Move</button>
+                <button className="btn">Search</button>
+                <button className="btn">Attack</button>
+                <button className="btn">End turn</button>
+              </div>
+            </div>
+          </div>
+        )}
+        <div className="tiles" id="tiles">
           {app.tiles &&
             app.tiles.length > 0 &&
             app.tiles.map((tile, index) => {
-              if (tile.type === 'road') {
+              if (tile.type === 'road' && index < 49) {
                 return (
                   <div
-                    className={`tile ${playerMoving ? 'selectable' : ''} ${tile.spawn && 'spawn'} ${
-                      tile.exit && 'exit'
-                    } ${tile.start && 'start'} ${tile.type}`}
+                    className={`tile ${playerMoving ? 'selectable' : ''} ${
+                      tile.spawn && 'spawn'
+                    } ${tile.exit && 'exit'} ${tile.start && 'start'} ${
+                      tile.type
+                    }`}
                     id={`tile-${tile.index}`}
                     onClick={() => {
-                      console.log('CLICKING TILE')
                       if (playerMoving) {
-                        console.log('MOVING TO TILE ', index)
-
                         if (
                           confirm(
-                            `Do you want to move ${playerToMove.name} to tile ${index}?`
+                            `Do you want to move ${activePlayer.name} to tile ${index}?`
                           )
                         ) {
                           setTileToMoveTo(index)
@@ -160,28 +197,20 @@ function App() {
                       alt=""
                     />
                     <div className="tile__number">{index}</div>
-                    <div className="tile__players">
-                      {/* {players.map(player => {
-                      return (
-                        <PlayerToken tile={index} player={player} />
-                      )
-                    })} */}
-                    </div>
                   </div>
                 )
-              } else {
+              } else if (index < 49) {
                 return (
                   <div
-                    className={`tile ${playerMoving ? 'selectable' : ''} ${tile.type}`}
+                    className={`tile ${playerMoving ? 'selectable' : ''} ${
+                      tile.type
+                    }`}
                     id={`tile-${tile.index}`}
                     onClick={() => {
-                      console.log('CLICKING TILE')
                       if (playerMoving) {
-                        console.log('MOVING TO TILE ', index)
-
                         if (
                           confirm(
-                            `Do you want to move ${playerToMove.name} to tile ${index}?`
+                            `Do you want to move ${activePlayer.name} to tile ${index}?`
                           )
                         ) {
                           setTileToMoveTo(index)
@@ -195,13 +224,6 @@ function App() {
                       alt=""
                     />
                     <div className="tile__number">{index}</div>
-                    <div className="tile__players">
-                      {/* {players.map(player => {
-                      return (
-                        <PlayerToken tile={index} player={player} />
-                      )
-                    })} */}
-                    </div>
                   </div>
                 )
               }

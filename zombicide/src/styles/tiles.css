@@ -1,10 +1,3 @@
-html,
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Roboto Mono';
-}
-
 .tiles {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -12,35 +5,18 @@ body {
   /* grid-column-gap: 2px;
   grid-row-gap: 2px; */
   background: #000000;
-  height: 100vh;
+  height: calc(100vh - 96px);
   aspect-ratio: 1/1;
+  margin: var(--padding);
+  margin-left: 0;
+  /* border: 2px solid white; */
+  border-radius: 8px;
+  /* border: 2px solid black; */
+  box-shadow: 12px 12px 48px 0 rgba(0, 0, 0, 0.25),
+    -8px -8px 48px 0 rgba(21, 21, 34, 0.3), 0px 0px 120px -20px #00000090;
+  /* overflow: hidden; */
+  /* width: fit-content; */
 }
-
-.player {
-  width: 30px;
-  height: 30px;
-  background: red;
-  border-radius: 999px;
-  border: 3px solid red;
-  color: white;
-  z-index: 999;
-  font-size: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  position: absolute;
-  cursor: pointer;
-  /* display: none; */
-}
-
-.player.moving {
-  box-shadow: 1px 1px 40px -10px #00000020;
-  border: 3px solid white;
-}
-
-/* .player.visible {
-  display: block;
-} */
 
 .tile {
   background: #e8e8e8;
@@ -50,10 +26,11 @@ body {
   align-items: center;
   justify-content: center;
   box-shadow: 0px 0px 0px 1px #000000;
+  opacity: 0.5;
 }
 .tile.selectable {
   cursor: pointer;
-  transition: .1s ease;
+  transition: 0.1s ease;
 }
 .tile.selectable:hover {
   filter: brightness(50%);
@@ -104,7 +81,6 @@ body {
   width: 100%;
   height: 100%;
 }
-
 .tile.spawn::after {
   display: block;
   position: absolute;
@@ -125,16 +101,6 @@ body {
   height: 100%;
   width: 100%;
 }
-
-/* .tile.building.image__1 img {background: url('./images/building_1.JPG');}
-.tile.building.image__2 img {background: url('./images/building_2.JPG');}
-.tile.building.image__3 img {background: url('./images/building_3.JPG');}
-.tile.building.image__4 img {background: url('./images/building_4.JPG');}
-.tile.building.image__5 img {background: url('./images/building_5.JPG');}
-.tile.building.image__6 img {background: url('./images/building_6.JPG');}
-.tile.building.image__7 img {background: url('./images/building_7.JPG');}
-.tile.building.image__8 img {background: url('./images/building_8.JPG');} */
-
 .tile__number {
   font-size: 12px;
   font-weight: bold;
@@ -149,21 +115,4 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-}
-
-.tile__players {
-  display: flex;
-  background: #00000010;
-  padding: 4px;
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: calc(100% - 4px);
-  height: fit-content;
-  flex-wrap: wrap;
-}
-
-.tile__players .player {
-  margin-right: 4px;
-  margin-bottom: 4px;
 }

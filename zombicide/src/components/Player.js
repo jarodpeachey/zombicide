@@ -33,12 +33,6 @@ const Player = ({ player, tile: parentTile }) => {
 
   // UPDATE POSITION OF PLAYER ON TILE CHANGE
   useEffect(() => {
-    // document
-    //   .getElementById(`tile-${tile}`)
-    //   .querySelector(
-    //     '.tile__players'
-    //   ).innerHTML += `<div class="player">${name}</div>`
-
     playersProvider.players.forEach((item) => {
       let newItem = document.getElementById(`${item.name.toLowerCase()}`)
 

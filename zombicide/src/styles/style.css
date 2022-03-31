@@ -1,0 +1,107 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&family=Patrick+Hand&display=swap');
+
+:root {
+  --padding: 64px;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Patrick Hand';
+  background: #000000;
+  color: white;
+  background: url('../images/background.jpg');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+span,
+div {
+  line-height: 17px;
+  font-size: 17px;
+}
+
+p {
+  line-height: 17px;
+  font-size: 17px;
+  margin-top: 0;
+  margin-bottom: 8px;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Permanent Marker';
+  margin-top: 0;
+  /* margin-bottom: 16px; */
+}
+
+h2 {
+  font-size: 36px;
+  margin-bottom: 32px;
+}
+
+h3 {
+  font-size: 24px;
+}
+
+h4 {
+  font-size: 18px;
+  margin-bottom: 16px;
+}
+
+.game {
+  display: flex;
+  align-items: flex-start;
+  height: 100vh;
+  overflow: hidden;
+}
+
+@media (max-width: 1000px) {
+  .game {
+    flex-direction: column;
+    overflow: visible;
+    align-items: flex-start;
+    justify-content: flex-start;
+    height: 100%;
+  }
+
+  .control-panel {
+    padding-bottom: 0px !important;
+    height: fit-content;
+  }
+
+  .game > :last-child {
+    margin: var(--padding) !important;
+    margin-left: var(--padding) !important;
+    width: calc(100% - (var(--padding) * 2));
+    height: auto;
+    max-width: 400px;
+  }
+}
+
+.game > :last-child {
+  margin-left: auto;
+}
+
+.btn {
+  font-family: 'Permanent Marker';
+  padding: 8px 16px;
+  line-height: 16px;
+  font-size: 14px;
+  border: none;
+  /* background: #ffffff50; */
+  border-radius: 2px;
+  cursor: pointer;
+  transition: 0.1s;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  filter: brightness(80%);
+}

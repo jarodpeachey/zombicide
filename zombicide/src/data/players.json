@@ -6,7 +6,8 @@
     "hand": [],
     "backpack": [],
     "active": true,
-    "tile": 0
+    "tile": 0,
+    "actions": 4
   },
   {
     "name": "Doug",
@@ -15,7 +16,8 @@
     "hand": [],
     "backpack": [],
     "active": true,
-    "tile": 0
+    "tile": 0,
+    "actions": 4
   },
   {
     "name": "Ned",
@@ -24,7 +26,8 @@
     "hand": [],
     "backpack": [],
     "active": true,
-    "tile": 0
+    "tile": 0,
+    "actions": 4
   },
   {
     "name": "Jim",
@@ -33,7 +36,8 @@
     "hand": [],
     "backpack": [],
     "active": true,
-    "tile": 0
+    "tile": 0,
+    "actions": 4
   },
   {
     "name": "Wanda",
@@ -42,6 +46,7 @@
     "hand": [],
     "backpack": [],
     "active": false,
-    "tile": 0
+    "tile": 0,
+    "actions": 4
   }
 ]

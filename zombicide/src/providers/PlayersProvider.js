@@ -9,27 +9,11 @@ export const PlayersContext = createContext({})
 export default function PlayersProvider({ strings, children }) {
   const tilesProvider = useTiles()
   const [players, setPlayers] = useState([])
-  const [playerToMove, setPlayerToMove] = useState(null)
-
-  // const updatePlayer = (playerToUpdate) => {
-  //   setTimeout(() => {
-  //     console.log('UPDATING PLAYER: ', playerToUpdate.name)
-  //     console.log("PLAYERS: ", players)
-
-  //     let newArray = players.filter((player) => player.name !== playerToUpdate.name)
-
-  //     // console.log(newArray);
-
-  //     setPlayers([
-  //       ...newArray,
-  //       playerToUpdate,
-  //     ])
-  //   }, 200)
-  // }
+  const [playerMoving, setPlayerMoving] = useState(false)
+  const [activePlayerIndex, setActivePlayerIndex] = useState(0)
+  const [activePlayer, setActivePlayer] = useState({})
 
   useEffect(() => {
-    // console.log(sessionStorage.getItem('initialized'));
-    // if (!sessionStorage.getItem('initialized')) {
     console.log('RUNNING USE EFFECT')
     let activePlayers = []
     allPlayers.forEach((player) => {
@@ -39,6 +23,9 @@ export default function PlayersProvider({ strings, children }) {
     })
 
     setPlayers(activePlayers)
+    setActivePlayerIndex(0)
+    setActivePlayer(activePlayers[0])
+    // console.log(activePlayers[0]);
 
     setTimeout(() => {
       sessionStorage.setItem('initialized', true)
@@ -47,19 +34,31 @@ export default function PlayersProvider({ strings, children }) {
   }, [])
 
   useEffect(() => {
-    if (playerToMove && playerToMove.name && playerToMove.name !== '') {
-      console.log('MOVING PLAYER: ', playerToMove)
-      tilesProvider.setPlayerMoving(true)
+    if (players && players.length > 0 && activePlayerIndex) {
+      console.log('ACTIVE PLAYER INDEX: ', activePlayerIndex)
+      console.log('ACTIVE PLAYER INDEX PLAYER: ', players[activePlayerIndex])
     }
-  }, [playerToMove])
+  }, [activePlayerIndex])
+
+  useEffect(() => {
+    console.log('ACTIVE PLAYER: ', activePlayer)
+  }, [activePlayer])
+
+  useEffect(() => {
+    if (playerMoving) {
+      console.log('MOVING PLAYER: ', activePlayer)
+      tilesProvider.setPlayerMoving(true)
+      tilesProvider.setTileToMoveFrom(activePlayer.tile)
+    }
+  }, [playerMoving])
 
   useEffect(() => {
     if (tilesProvider.tileToMoveTo) {
       setPlayers([
-        ...players.filter((player) => player.name !== playerToMove.name),
-        { ...playerToMove, tile: tilesProvider.tileToMoveTo },
+        ...players.filter((player) => player.name !== activePlayer.name),
+        { ...activePlayer, tile: tilesProvider.tileToMoveTo },
       ])
-      setPlayerToMove(null)
+      setPlayerMoving(false)
       tilesProvider.setPlayerMoving(false)
       tilesProvider.setTileToMoveTo(null)
     }
@@ -69,8 +68,10 @@ export default function PlayersProvider({ strings, children }) {
     <PlayersContext.Provider
       value={{
         players: players,
-        setPlayerToMove: setPlayerToMove,
-        playerToMove: playerToMove,
+        playerMoving: playerMoving,
+        setPlayerMoving: setPlayerMoving,
+        activePlayer: activePlayer,
+        setActivePlayer: setActivePlayer,
       }}
     >
       {children}
