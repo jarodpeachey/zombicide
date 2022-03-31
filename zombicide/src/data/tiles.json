@@ -7,8 +7,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 0,
@@ -18,8 +17,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 0,
@@ -29,8 +27,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 0,
@@ -40,8 +37,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 0,
@@ -51,8 +47,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 0,
@@ -62,8 +57,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 0,
@@ -73,8 +67,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
 
   {
@@ -85,8 +78,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 1,
@@ -96,8 +88,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 1,
@@ -107,8 +98,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 1,
@@ -118,8 +108,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 1,
@@ -129,8 +118,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 1,
@@ -141,7 +129,9 @@
     "start": false,
     "exit": false,
     "spawn": false,
-    "doorOpen": false
+    "door": true,
+    "doorOpen": false,
+    "doorPlacement": "left"
   },
   {
     "row": 1,
@@ -151,8 +141,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
 
   {
@@ -163,8 +152,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 2,
@@ -174,8 +162,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 2,
@@ -185,8 +172,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 2,
@@ -196,8 +182,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 2,
@@ -207,8 +192,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 2,
@@ -218,8 +202,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 2,
@@ -229,8 +212,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
 
   {
@@ -241,8 +223,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 3,
@@ -252,8 +233,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 3,
@@ -263,8 +243,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 3,
@@ -274,8 +253,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 3,
@@ -285,8 +263,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 3,
@@ -296,8 +273,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 3,
@@ -307,8 +283,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
 
   {
@@ -319,8 +294,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 4,
@@ -330,8 +304,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 4,
@@ -341,8 +314,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 4,
@@ -352,8 +324,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 4,
@@ -363,8 +334,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 4,
@@ -374,8 +344,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 4,
@@ -385,8 +354,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
 
   {
@@ -397,8 +365,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 5,
@@ -408,8 +375,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 5,
@@ -419,8 +385,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 5,
@@ -430,8 +395,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 5,
@@ -441,8 +405,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 5,
@@ -452,8 +415,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 5,
@@ -464,7 +426,9 @@
     "start": false,
     "exit": false,
     "spawn": false,
-    "doorOpen": false
+    "door": true,
+    "doorOpen": false,
+    "doorPlacement": "bottom"
   },
 
   {
@@ -475,8 +439,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 6,
@@ -486,8 +449,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 6,
@@ -497,8 +459,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 6,
@@ -508,8 +469,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 6,
@@ -519,8 +479,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 6,
@@ -530,8 +489,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   },
   {
     "row": 6,
@@ -541,7 +499,6 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false,
-    "doorOpen": false
+    "spawn": false
   }
 ]

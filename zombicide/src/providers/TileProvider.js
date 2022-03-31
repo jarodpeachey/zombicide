@@ -8,8 +8,10 @@ export default function TileProvider({ strings, children }) {
   const [tiles, setTiles] = useState([...tileTemplates])
   const [playerMoving, setPlayerMoving] = useState(false)
   const [tileToMoveTo, setTileToMoveTo] = useState(null)
-  const [tileToMoveFrom, setTileToMoveFrom] = useState(null)
+  // const [tileToMoveFrom, setTileToMoveFrom] = useState(null)
   const [startTile, setStartTile] = useState(48)
+  const [tileToOpenDoor, setTileToOpenDoor] = useState(null)
+  const [openingDoor, setOpeningDoor] = useState(false)
 
   // BASE VARIABLES
   let exitTile = 42
@@ -94,32 +96,39 @@ export default function TileProvider({ strings, children }) {
     tileTemplates[startTile].start = true
 
     setTiles([...tileTemplates])
-    // }
   }, [])
 
-  const isValidMoveAttempt = () => {
-    
-  }
-
-  // useEffect(() => {
-  //   console.log('Player moving: ', playerMoving)
-  // }, [playerMoving])
   useEffect(() => {
     if (tileToMoveTo) {
-      if (isValidMoveAttempt()) {
-        console.log('Tile to move to: ', tileToMoveTo)
-
-        setTiles([
-          ...tiles.filter((tile) => tile.index !== tileToMoveTo.index),
-          { ...tileToMoveTo },
-        ])
-      }
+      // if (isValidMoveAttempt()) {
+      // console.log(tileToMoveTo)
+      // setTiles([
+      //   ...tiles.filter((tile) => tile.index !== tileToMoveTo.index),
+      //   { ...tileToMoveTo },
+      // ])
+      setTileToMoveTo(null)
+      // setTileToMoveFrom(null)
+      // }
     }
   }, [tileToMoveTo])
 
   useEffect(() => {
-    console.log('TILES: ', tiles)
-  }, [tiles])
+    console.log(tileToOpenDoor);
+    if (tileToOpenDoor) {
+      let tile = tiles.filter(item => item.index === tileToOpenDoor)[0]
+      setTiles([
+        ...tiles.filter((tile) => tile.index !== tileToOpenDoor),
+        { ...tile, doorOpen: true },
+      ])
+      setTileToOpenDoor(null)
+      setOpeningDoor(false)
+    }
+  }, [tileToOpenDoor, tiles])
+
+  useEffect(() => {
+    if (openingDoor) {
+    }
+  }, [openingDoor])
 
   return (
     <TileContext.Provider
@@ -131,7 +140,10 @@ export default function TileProvider({ strings, children }) {
         setPlayerMoving: setPlayerMoving,
         tileToMoveTo: tileToMoveTo,
         setTileToMoveTo: setTileToMoveTo,
-        setTileToMoveFrom: setTileToMoveFrom,
+        openingDoor: openingDoor,
+        setOpeningDoor: setOpeningDoor,
+        setTileToOpenDoor: setTileToOpenDoor,
+        tileToOpenDoor: tileToOpenDoor,
       }}
     >
       {children}

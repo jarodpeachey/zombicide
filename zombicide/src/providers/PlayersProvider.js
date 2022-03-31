@@ -14,7 +14,6 @@ export default function PlayersProvider({ strings, children }) {
   const [activePlayer, setActivePlayer] = useState({})
 
   useEffect(() => {
-    console.log('RUNNING USE EFFECT')
     let activePlayers = []
     allPlayers.forEach((player) => {
       if (player.active) {
@@ -25,7 +24,6 @@ export default function PlayersProvider({ strings, children }) {
     setPlayers(activePlayers)
     setActivePlayerIndex(0)
     setActivePlayer(activePlayers[0])
-    // console.log(activePlayers[0]);
 
     setTimeout(() => {
       sessionStorage.setItem('initialized', true)
@@ -35,20 +33,17 @@ export default function PlayersProvider({ strings, children }) {
 
   useEffect(() => {
     if (players && players.length > 0 && activePlayerIndex) {
-      console.log('ACTIVE PLAYER INDEX: ', activePlayerIndex)
-      console.log('ACTIVE PLAYER INDEX PLAYER: ', players[activePlayerIndex])
     }
   }, [activePlayerIndex])
 
   useEffect(() => {
-    console.log('ACTIVE PLAYER: ', activePlayer)
+    // console.log('ACTIVE PLAYER: ', activePlayer)
   }, [activePlayer])
 
   useEffect(() => {
     if (playerMoving) {
-      console.log('MOVING PLAYER: ', activePlayer)
       tilesProvider.setPlayerMoving(true)
-      tilesProvider.setTileToMoveFrom(activePlayer.tile)
+      // tilesProvider.setTileToMoveFrom(activePlayer.tile)
     } else {
       tilesProvider.setPlayerMoving(false)
       tilesProvider.setTileToMoveTo(null)
@@ -62,6 +57,9 @@ export default function PlayersProvider({ strings, children }) {
         { ...activePlayer, tile: tilesProvider.tileToMoveTo },
       ])
       setPlayerMoving(false)
+      setActivePlayer({ ...activePlayer, tile: tilesProvider.tileToMoveTo })
+    } else {
+      console.log(activePlayer)
     }
   }, [tilesProvider.tileToMoveTo])
 

@@ -15,9 +15,14 @@
 
 .control-panel button {
   margin-right: 8px;
+  width: 80px;
+  padding-left: 0;
+  padding-right: 0;
+  text-align: center;
 }
 
 .control-panel button:nth-child(1) {background: rgb(151, 151, 193);}
-.control-panel button:nth-child(2) {background: rgb(217, 217, 134);}
-.control-panel button:nth-child(3) {background: rgb(198, 72, 72);}
+.control-panel button:nth-child(2) {background: rgb(126, 187, 140);}
+.control-panel button:nth-child(3) {background: rgb(217, 217, 134);}
+.control-panel button:nth-child(4) {background: rgb(198, 72, 72);}
 /* .control-panel button:nth-child(4) {background: blue;} */

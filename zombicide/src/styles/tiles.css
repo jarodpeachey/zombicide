@@ -1,3 +1,7 @@
+:root {
+  --door-width: 6px;
+}
+
 .tiles {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -27,13 +31,51 @@
   justify-content: center;
   box-shadow: 0px 0px 0px 1px #000000;
   opacity: 0.5;
+  /* border: 1px solid transparent; */
 }
-.tile.selectable {
+.tile.hover {
   cursor: pointer;
   transition: 0.1s ease;
 }
 .tile.selectable:hover {
   filter: brightness(50%);
+}
+.tile.selectable {
+  filter: brightness(180%);
+  cursor: pointer;
+  transition: 0.1s ease;
+}
+.tile.door::after {
+  height: var(--door-width);
+  width: 70%;
+  background: rgb(243, 25, 25);
+  position: absolute;
+  display: block;
+  content: '';
+  z-index: 9999;
+}
+.tile.door.bottom::after {
+  left: 15%;
+  bottom: 0px;
+}
+.tile.door.top::after {
+  left: 15%;
+  top: 0px;
+}
+.tile.door.left::after {
+  left: 0px;
+  bottom: 15%;
+  height: 70%;
+  width: var(--door-width);
+}
+.tile.door.right::after {
+  right: 0px;
+  bottom: 15%;
+  height: 70%;
+  width: var(--door-width);
+}
+.tile.door.open::after {
+  background: rgb(1, 252, 1);
 }
 
 .tile.building {
@@ -49,7 +91,7 @@
 }
 
 .tile.building img.background {
-  filter: brightness(90%) sepia(20%);
+  filter: brightness(90%) sepia(40%);
 }
 
 .tile.road img.background {
@@ -69,6 +111,7 @@
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: 1;
 }
 
 .tile.start::after {
@@ -80,6 +123,7 @@
   left: 0;
   width: 100%;
   height: 100%;
+  z-index: 1;
 }
 .tile.spawn::after {
   display: block;
@@ -100,6 +144,7 @@
   top: 0;
   height: 100%;
   width: 100%;
+  z-index: 1;
 }
 .tile__number {
   font-size: 12px;

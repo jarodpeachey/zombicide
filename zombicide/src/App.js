@@ -26,11 +26,69 @@ import Player from './components/Player'
 import PlayerToken from './components/PlayerToken'
 import { useEffect } from 'react'
 
+const isValidMoveAttempt = (from, to) => {
+  let tileFrom = document.getElementById(`tile-${from.index}`)
+  let tileTo = document.getElementById(`tile-${to.index}`)
+
+  if (tileFrom && tileTo) {
+    let xFrom = tileFrom.getBoundingClientRect().x + tileFrom.clientWidth / 2
+    let yFrom = tileFrom.getBoundingClientRect().y + tileFrom.clientHeight / 2
+
+    let xTo = tileTo.getBoundingClientRect().x + tileTo.clientWidth / 2
+    let yTo = tileTo.getBoundingClientRect().y + tileTo.clientHeight / 2
+
+    let isWallInWay = false
+
+    if (to.type === from.type) {
+      isWallInWay = false
+    } else if (!to.doorOpen && !from.doorOpen) {
+      isWallInWay = true
+    }
+
+    if (
+      Math.abs(xTo - xFrom) <= tileFrom.clientHeight + 10 &&
+      Math.abs(yTo - yFrom) <= tileFrom.clientHeight + 10 &&
+      from.index !== to.index &&
+      !isWallInWay && !(Math.abs(xTo - xFrom) >= tileFrom.clientHeight - 10 &&
+      Math.abs(yTo - yFrom) >= tileFrom.clientHeight - 10)
+    )
+      return true
+  }
+  return false
+}
+
+const isValidDoorOpenAttempt = (from, to) => {
+  let tileFrom = document.getElementById(`tile-${from.index}`)
+  let tileTo = document.getElementById(`tile-${to.index}`)
+
+  if (tileFrom && tileTo) {
+    let xFrom = tileFrom.getBoundingClientRect().x + tileFrom.clientWidth / 2
+    let yFrom = tileFrom.getBoundingClientRect().y + tileFrom.clientHeight / 2
+
+    let xTo = tileTo.getBoundingClientRect().x + tileTo.clientWidth / 2
+    let yTo = tileTo.getBoundingClientRect().y + tileTo.clientHeight / 2
+
+    if (
+      Math.abs(xTo - xFrom) <= tileFrom.clientHeight + 10 &&
+      Math.abs(yTo - yFrom) <= tileFrom.clientHeight + 10 &&
+      (from.door === true || to.door === true)
+    )
+      return true
+  }
+  return false
+}
+
 function App() {
   const app = useTiles()
   const { players, playerToMove, activePlayer, playerMoving, setPlayerMoving } =
     usePlayers()
-  const { setTileToMoveTo } = useTiles()
+  const {
+    setTileToMoveTo,
+    tiles,
+    setOpeningDoor,
+    openingDoor,
+    setTileToOpenDoor,
+  } = useTiles()
 
   const getImage = (path) => {
     if (path === 1) return building_1
@@ -114,6 +172,15 @@ function App() {
   return (
     <>
       <div className="game">
+        <div
+          id="dot"
+          style={{
+            background: 'pink',
+            width: 5,
+            height: 5,
+            position: 'absolute',
+          }}
+        ></div>
         {players &&
           players.length > 0 &&
           players.map((player) => {
@@ -135,7 +202,7 @@ function App() {
             )
           })}
         {activePlayer && (
-          <div class="control-panel">
+          <div className="control-panel">
             <div className="control-panel__inner">
               <h2>{activePlayer.name}</h2>
               <p>
@@ -171,6 +238,18 @@ function App() {
                 >
                   {playerMoving ? 'Cancel' : 'Move'}
                 </button>
+                <button
+                  className="btn"
+                  onClick={() => {
+                    if (openingDoor) {
+                      setOpeningDoor(false)
+                    } else {
+                      setOpeningDoor(true)
+                    }
+                  }}
+                >
+                  {openingDoor ? 'Cancel' : 'Open Door'}
+                </button>
                 <button className="btn">Search</button>
                 <button className="btn">Attack</button>
                 <button className="btn">End turn</button>
@@ -181,65 +260,86 @@ function App() {
         <div className="tiles" id="tiles">
           {app.tiles &&
             app.tiles.length > 0 &&
-            app.tiles.map((tile, index) => {
-              if (tile.type === 'road' && index < 49) {
-                return (
-                  <div
-                    className={`tile ${playerMoving ? 'selectable' : ''} ${
-                      tile.spawn && 'spawn'
-                    } ${tile.exit && 'exit'} ${tile.start && 'start'} ${
-                      tile.type
-                    }`}
-                    id={`tile-${tile.index}`}
-                    onClick={() => {
-                      if (playerMoving) {
-                        if (
-                          confirm(
-                            `Do you want to move ${activePlayer.name} to tile ${index}?`
-                          )
-                        ) {
-                          setTileToMoveTo(index)
+            app.tiles
+              .sort(function (a, b) {
+                return a.index - b.index
+              })
+              .map((tile, index) => {
+                console.log(tile)
+                if (index < 49) {
+                  return (
+                    <div
+                      className={`tile ${
+                        (isValidMoveAttempt(
+                          tiles.filter(
+                            (item) => item.index === activePlayer.tile
+                          )[0],
+                          tile
+                        ) &&
+                          playerMoving) ||
+                        (openingDoor &&
+                          isValidDoorOpenAttempt(
+                            tiles.filter(
+                              (item) => item.index === activePlayer.tile
+                            )[0],
+                            tile
+                          ))
+                          ? 'selectable'
+                          : ''
+                      } ${tile.door ? 'door' : ''} ${
+                        tile.doorOpen ? 'open' : ''
+                      } ${tile.doorPlacement} ${tile.spawn && 'spawn'} ${
+                        tile.exit && 'exit'
+                      } ${tile.start && 'start'} ${tile.type}`}
+                      id={`tile-${tile.index}`}
+                      onClick={() => {
+                        if (playerMoving) {
+                          if (
+                            isValidMoveAttempt(
+                              tiles.filter(
+                                (item) => item.index === activePlayer.tile
+                              )[0],
+                              tile
+                            )
+                          ) {
+                            if (
+                              confirm(
+                                `Do you want to move ${activePlayer.name} to tile ${index}?`
+                              )
+                            ) {
+                              setTileToMoveTo(index)
+                            }
+                          } else {
+                            alert('You can only move 1 space at a time')
+                          }
+                        } else if (openingDoor) {
+                          if (
+                            isValidDoorOpenAttempt(
+                              tiles.filter(
+                                (item) => item.index === activePlayer.tile
+                              )[0],
+                              tile
+                            )
+                          ) {
+                            if (confirm(`Do you want to open this door?`)) {
+                              setTileToOpenDoor(index)
+                            }
+                          } else {
+                            alert("You can't open this door")
+                          }
                         }
-                      }
-                    }}
-                  >
-                    <img
-                      className="background"
-                      src={getImage(tile.image)}
-                      alt=""
-                    />
-                    <div className="tile__number">{index}</div>
-                  </div>
-                )
-              } else if (index < 49) {
-                return (
-                  <div
-                    className={`tile ${playerMoving ? 'selectable' : ''} ${
-                      tile.type
-                    }`}
-                    id={`tile-${tile.index}`}
-                    onClick={() => {
-                      if (playerMoving) {
-                        if (
-                          confirm(
-                            `Do you want to move ${activePlayer.name} to tile ${index}?`
-                          )
-                        ) {
-                          setTileToMoveTo(index)
-                        }
-                      }
-                    }}
-                  >
-                    <img
-                      className="background"
-                      src={getImage(tile.image)}
-                      alt=""
-                    />
-                    <div className="tile__number">{index}</div>
-                  </div>
-                )
-              }
-            })}
+                      }}
+                    >
+                      <img
+                        className="background"
+                        src={getImage(tile.image)}
+                        alt=""
+                      />
+                      <div className="tile__number">{index}</div>
+                    </div>
+                  )
+                }
+              })}
         </div>
       </div>
     </>
