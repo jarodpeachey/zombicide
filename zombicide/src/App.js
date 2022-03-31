@@ -71,7 +71,7 @@ const isValidDoorOpenAttempt = (from, to) => {
     if (
       Math.abs(xTo - xFrom) <= tileFrom.clientHeight + 10 &&
       Math.abs(yTo - yFrom) <= tileFrom.clientHeight + 10 &&
-      (from.door === true || to.door === true)
+      (from.door === true || to.door === true) && (from.doorOpen === false || to.doorOpen === false)
     )
       return true
   }
@@ -80,7 +80,7 @@ const isValidDoorOpenAttempt = (from, to) => {
 
 function App() {
   const app = useTiles()
-  const { players, playerToMove, activePlayer, playerMoving, setPlayerMoving } =
+  const { players, setActivePlayer, playerToMove, activePlayer, playerMoving, setPlayerMoving } =
     usePlayers()
   const {
     setTileToMoveTo,
@@ -172,15 +172,6 @@ function App() {
   return (
     <>
       <div className="game">
-        <div
-          id="dot"
-          style={{
-            background: 'pink',
-            width: 5,
-            height: 5,
-            position: 'absolute',
-          }}
-        ></div>
         {players &&
           players.length > 0 &&
           players.map((player) => {
@@ -196,6 +187,9 @@ function App() {
                     ? 'moving'
                     : ''
                 }`}
+                onClick={() => {
+                  setActivePlayer(player)
+                }}
               >
                 {player.name}
               </div>

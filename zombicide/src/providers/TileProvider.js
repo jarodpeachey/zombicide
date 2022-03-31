@@ -8,7 +8,6 @@ export default function TileProvider({ strings, children }) {
   const [tiles, setTiles] = useState([...tileTemplates])
   const [playerMoving, setPlayerMoving] = useState(false)
   const [tileToMoveTo, setTileToMoveTo] = useState(null)
-  // const [tileToMoveFrom, setTileToMoveFrom] = useState(null)
   const [startTile, setStartTile] = useState(48)
   const [tileToOpenDoor, setTileToOpenDoor] = useState(null)
   const [openingDoor, setOpeningDoor] = useState(false)
@@ -100,22 +99,14 @@ export default function TileProvider({ strings, children }) {
 
   useEffect(() => {
     if (tileToMoveTo) {
-      // if (isValidMoveAttempt()) {
-      // console.log(tileToMoveTo)
-      // setTiles([
-      //   ...tiles.filter((tile) => tile.index !== tileToMoveTo.index),
-      //   { ...tileToMoveTo },
-      // ])
       setTileToMoveTo(null)
-      // setTileToMoveFrom(null)
-      // }
     }
   }, [tileToMoveTo])
 
   useEffect(() => {
-    console.log(tileToOpenDoor);
+    console.log(tileToOpenDoor)
     if (tileToOpenDoor) {
-      let tile = tiles.filter(item => item.index === tileToOpenDoor)[0]
+      let tile = tiles.filter((item) => item.index === tileToOpenDoor)[0]
       setTiles([
         ...tiles.filter((tile) => tile.index !== tileToOpenDoor),
         { ...tile, doorOpen: true },
