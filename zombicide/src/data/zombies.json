@@ -1,0 +1,14 @@
+[
+  {
+    "type": "walker",
+    "health": "1"
+  },
+  {
+    "type": "runner",
+    "health": "1"
+  },
+  {
+    "type": "fattie",
+    "health": "2"
+  }
+]

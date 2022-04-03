@@ -6,6 +6,7 @@ import './styles/style.css'
 import './styles/control-panel.css'
 import './styles/tiles.css'
 import './styles/players.css'
+import './styles/zombies.css'
 import building_1 from './images/building_1.JPG'
 import building_2 from './images/building_2.JPG'
 import building_3 from './images/building_3.JPG'
@@ -171,7 +172,7 @@ function App() {
 
   return (
     <>
-      <div className="game">
+      <div className="game" id="game">
         {players &&
           players.length > 0 &&
           players.map((player) => {
@@ -259,7 +260,7 @@ function App() {
                 return a.index - b.index
               })
               .map((tile, index) => {
-                console.log(tile)
+                // console.log(tile)
                 if (index < 49) {
                   return (
                     <div

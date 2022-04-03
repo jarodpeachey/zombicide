@@ -1,6 +1,9 @@
 import { useEffect } from 'react'
 import { createContext, useContext, useState } from 'react'
 import tileTemplates from '../data/tiles.json'
+import { calculateLeft } from '../utils/calculateLeft'
+import { calculateTop } from '../utils/calculateTop'
+import { useZombies } from './ZombiesProvider'
 
 export const TileContext = createContext({})
 
@@ -11,6 +14,11 @@ export default function TileProvider({ strings, children }) {
   const [startTile, setStartTile] = useState(48)
   const [tileToOpenDoor, setTileToOpenDoor] = useState(null)
   const [openingDoor, setOpeningDoor] = useState(false)
+  const { createZombies, setZombieToCreate, setGoAgain } = useZombies()
+  const [buildingTilesAlreadyDiscovered, setBuildingTilesAlreadyDiscovered] =
+    useState([])
+
+  // let buildingTilesAlreadyDiscovered = []
 
   // BASE VARIABLES
   let exitTile = 42
@@ -104,22 +112,125 @@ export default function TileProvider({ strings, children }) {
   }, [tileToMoveTo])
 
   useEffect(() => {
-    console.log(tileToOpenDoor)
     if (tileToOpenDoor) {
       let tile = tiles.filter((item) => item.index === tileToOpenDoor)[0]
       setTiles([
         ...tiles.filter((tile) => tile.index !== tileToOpenDoor),
         { ...tile, doorOpen: true },
       ])
+
+      spawnZombies(tileToOpenDoor)
+
       setTileToOpenDoor(null)
       setOpeningDoor(false)
     }
   }, [tileToOpenDoor, tiles])
 
-  useEffect(() => {
-    if (openingDoor) {
+  const isNextTo = (from, to) => {
+    let tileFrom = document.getElementById(`tile-${from}`)
+    let tileTo = document.getElementById(`tile-${to}`)
+
+    if (tileFrom && tileTo) {
+      let xFrom = tileFrom.getBoundingClientRect().x + tileFrom.clientWidth / 2
+      let yFrom = tileFrom.getBoundingClientRect().y + tileFrom.clientHeight / 2
+
+      let xTo = tileTo.getBoundingClientRect().x + tileTo.clientWidth / 2
+      let yTo = tileTo.getBoundingClientRect().y + tileTo.clientHeight / 2
+
+      let isWallInWay = false
+
+      if (
+        Math.abs(xTo - xFrom) <= tileFrom.clientHeight + 10 &&
+        Math.abs(yTo - yFrom) <= tileFrom.clientHeight + 10 &&
+        from !== to &&
+        !isWallInWay &&
+        !(
+          Math.abs(xTo - xFrom) >= tileFrom.clientHeight - 10 &&
+          Math.abs(yTo - yFrom) >= tileFrom.clientHeight - 10
+        )
+      )
+        return true
     }
-  }, [openingDoor])
+    return false
+  }
+
+  const getTilesNextTo = (startingTile) => {
+    let buildingTilesNextTo = []
+    tiles.forEach(({ index, type }) => {
+      if (isNextTo(startingTile, index) && type === 'building') {
+        buildingTilesNextTo.push(index)
+      }
+    })
+
+    return buildingTilesNextTo
+  }
+
+  const hasTileNotInArray = (tilesNextTo, tilesToSpawnIn) => {
+    tilesNextTo.forEach((tileNextTo) => {
+      if (tilesToSpawnIn.includes(tileNextTo)) {
+        return false
+      }
+    })
+    return true
+  }
+
+  // const [tilesToSpawnIn, setTilesToSpawnIn] = useState([])
+  // let tilesToSpawnIn = []
+
+  const spawnZombies = (startingTile) => {
+    let tilesToSpawnIn = []
+    let hasBeenChecked = []
+    let keepChecking = true
+
+    console.log(
+      'BUILDING TILES ALREADY DISCOVERED: ',
+      buildingTilesAlreadyDiscovered
+    )
+    console.log('START TILE: ', startingTile)
+
+    if (!buildingTilesAlreadyDiscovered.includes(startingTile)) {
+      checkNextTo(startingTile)
+
+      function checkNextTo(tileToCheck) {
+        let tilesNextTo = getTilesNextTo(tileToCheck)
+        hasBeenChecked.push(tileToCheck)
+        // console.log(`RUNNING SPAWN ZOMBIES FOR TILE ${tileToCheck}`)
+        // console.log('TILES NEXT TO: ', tilesNextTo)
+        // console.log('TILES THAT HAVE BEEN CHECKED: ', hasBeenChecked)
+
+        if (keepChecking) {
+          tilesNextTo.forEach((item, index) => {
+            if (
+              hasTileNotInArray(tilesNextTo, tilesToSpawnIn) &&
+              !hasBeenChecked.includes(item)
+            ) {
+              checkNextTo(item)
+            }
+
+            if (!tilesToSpawnIn.includes(item)) {
+              tilesToSpawnIn.push(item)
+            } else if (index === tilesNextTo.length - 1) {
+              keepChecking = false
+            }
+          })
+        }
+      }
+
+      // console.log('TILES IN BUILDING: ', tilesToSpawnIn)
+
+      if (!keepChecking) {
+        // tilesToSpawnIn.forEach((item) => {
+        setBuildingTilesAlreadyDiscovered([
+          ...buildingTilesAlreadyDiscovered,
+          ...tilesToSpawnIn,
+        ])
+        // })
+        createZombies(tilesToSpawnIn)
+      }
+    } else {
+      alert("You've already discovered this building.")
+    }
+  }
 
   return (
     <TileContext.Provider
