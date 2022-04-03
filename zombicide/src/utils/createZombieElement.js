@@ -10,11 +10,11 @@ export const createZombieElement = (zombies, zombieToCreate) => {
   zombie.id = `zombie-${
     zombies.length > 0 ? zombies[zombies.length - 1].id + 1 : 0
   }`
-  zombie.style.left = `${calculateLeft(zombieToCreate.tile) + (10 * zombiesInTile.length) + (zombiesInTile.length > 0 ? 4 : 0)}px`
+  zombie.style.left = `${calculateLeft(zombieToCreate.tile) + (8 * zombiesInTile.length) + (zombiesInTile.length > 0 ? 4 : 0)}px`
   zombie.style.top = `${
     calculateTop(zombieToCreate.tile) +
     document.getElementById(`tile-${zombieToCreate.tile}`).clientHeight -
-    10
+    8
   }px`
 
   document.getElementById('game').appendChild(zombie)

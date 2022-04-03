@@ -1,6 +1,6 @@
 .zombie {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: 999px;
   color: white;
   z-index: 999;
@@ -14,20 +14,20 @@
 }
 
 .zombie.walker {
-  width: 10px;
-  height: 10px;
+  /* width: 10px;
+  height: 10px; */
   content: "W";
-  background: yellow;
+  background: rgb(211, 211, 45);
 }
 .zombie.runner {
   /* width: 13px; */
   /* height: 13px; */
   content: "R";
-  background: orange;
+  background: rgb(255, 163, 25);
 }
 .zombie.fattie {
   /* width: 16px; */
   /* height: 16px; */
   content: "F";
-  background: red;
+  background: rgb(203, 0, 0);
 }

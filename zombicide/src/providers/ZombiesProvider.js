@@ -10,10 +10,9 @@ export const ZombiesContext = createContext({})
 export default function ZombiesProvider({ strings, children }) {
   const [zombies, setZombies] = useState([])
   const [zombiesToGoAgain, setZombiesToGoAgain] = useState([])
-  const delay = 300
+  const delay = 50
 
   const createZombies = (items) => {
-    // if (zombiesToGoAgain === 1 || zombiesToGoAgain === 2) {
     console.log(`ZOMBIES: `, zombies)
     let zombiesToCreate = []
 
@@ -21,9 +20,10 @@ export default function ZombiesProvider({ strings, children }) {
       setTimeout(() => {
         let number = Math.floor(Math.random() * (6 - 1 + 1)) + 1
         let type = 'walker'
-        let goAgain = Math.floor(Math.random() * (5 - 1 + 1)) + 1
+        let goAgain = Math.floor(Math.random() * (3 - 1 + 1)) + 1
 
         if (zombiesToGoAgain.length > 0) {
+          console.log('GO AGAIN: ', goAgain === 1)
           if (goAgain === 1) {
             if (number === 1 || number === 2 || number === 3) {
               type = 'walker'
@@ -32,6 +32,16 @@ export default function ZombiesProvider({ strings, children }) {
             } else {
               type = zombiesToGoAgain.length > 0 ? 'walker' : 'fattie'
             }
+
+            let zombieToCreate = {
+              ...allZombies.filter((item) => item.type === type)[0],
+              type: type,
+              tile: tileToSpawnIn,
+              id: zombies.length > 0 ? zombies[zombies.length - 1].id + 1 : 0,
+            }
+
+            zombiesToCreate.push(zombieToCreate)
+            createZombieElement(zombies, zombieToCreate)
           }
         } else {
           if (number === 1 || number === 2 || number === 3) {
@@ -41,17 +51,17 @@ export default function ZombiesProvider({ strings, children }) {
           } else {
             type = zombiesToGoAgain.length > 0 ? 'walker' : 'fattie'
           }
-        }
 
-        let zombieToCreate = {
-          ...allZombies.filter((item) => item.type === type)[0],
-          type: type,
-          tile: tileToSpawnIn,
-          id: zombies.length > 0 ? zombies[zombies.length - 1].id + 1 : 0,
-        }
+          let zombieToCreate = {
+            ...allZombies.filter((item) => item.type === type)[0],
+            type: type,
+            tile: tileToSpawnIn,
+            id: zombies.length > 0 ? zombies[zombies.length - 1].id + 1 : 0,
+          }
 
-        zombiesToCreate.push(zombieToCreate)
-        createZombieElement(zombies, zombieToCreate)
+          zombiesToCreate.push(zombieToCreate)
+          createZombieElement(zombies, zombieToCreate)
+        }
       }, index * delay)
     })
 
