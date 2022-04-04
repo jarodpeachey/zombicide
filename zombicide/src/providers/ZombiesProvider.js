@@ -10,7 +10,7 @@ export const ZombiesContext = createContext({})
 export default function ZombiesProvider({ strings, children }) {
   const [zombies, setZombies] = useState([])
   const [zombiesToGoAgain, setZombiesToGoAgain] = useState([])
-  const delay = 50
+  const delay = 0
 
   const createZombies = (items) => {
     console.log(`ZOMBIES: `, zombies)
@@ -18,7 +18,7 @@ export default function ZombiesProvider({ strings, children }) {
 
     items.forEach((tileToSpawnIn, index) => {
       setTimeout(() => {
-        let number = Math.floor(Math.random() * (6 - 1 + 1)) + 1
+        let number = Math.floor(Math.random() * (8 - 1 + 1)) + 1
         let type = 'walker'
         let goAgain = Math.floor(Math.random() * (3 - 1 + 1)) + 1
 
@@ -30,7 +30,7 @@ export default function ZombiesProvider({ strings, children }) {
             } else if (number === 4 || number === 5) {
               type = 'runner'
             } else {
-              type = zombiesToGoAgain.length > 0 ? 'walker' : 'fattie'
+              type = ''
             }
 
             let zombieToCreate = {
@@ -48,8 +48,10 @@ export default function ZombiesProvider({ strings, children }) {
             type = 'walker'
           } else if (number === 4 || number === 5) {
             type = 'runner'
+          } else if (number === 6) {
+            type = 'fattie'
           } else {
-            type = zombiesToGoAgain.length > 0 ? 'walker' : 'fattie'
+            type = ''
           }
 
           let zombieToCreate = {
@@ -60,7 +62,9 @@ export default function ZombiesProvider({ strings, children }) {
           }
 
           zombiesToCreate.push(zombieToCreate)
-          createZombieElement(zombies, zombieToCreate)
+          if (type !== '') {
+            createZombieElement(zombies, zombieToCreate)
+          }
         }
       }, index * delay)
     })

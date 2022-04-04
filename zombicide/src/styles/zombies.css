@@ -1,6 +1,6 @@
 .zombie {
-  width: 8px;
-  height: 8px;
+  width: 9px;
+  height: 9px;
   border-radius: 999px;
   color: white;
   z-index: 999;
@@ -8,7 +8,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
+  margin-right: 3px;
+  /* position: absolute; */
+
   /* cursor: pointer; */
   /* display: none; */
 }

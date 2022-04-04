@@ -23,14 +23,14 @@
 }
 
 .tile {
-  background: #e8e8e8;
+  background: #0a0a0c;
   aspect-ratio: 1/1;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
   box-shadow: 0px 0px 0px 1px #000000;
-  opacity: 0.5;
+  overflow: hidden;
   /* border: 1px solid transparent; */
 }
 .tile.hover {
@@ -45,6 +45,9 @@
   cursor: pointer;
   transition: 0.1s ease;
 }
+.tile.door {
+  overflow: visible;
+}
 .tile.door::after {
   height: var(--door-width);
   width: 70%;
@@ -55,22 +58,22 @@
   z-index: 9999;
 }
 .tile.door.bottom::after {
-  left: 15%;
-  bottom: 0px;
+  left: calc(15%);
+  bottom: -3px;
 }
 .tile.door.top::after {
-  left: 15%;
-  top: 0px;
+  left: calc(15%);
+  top: -3px;
 }
 .tile.door.left::after {
-  left: 0px;
-  bottom: 15%;
+  left: -3px;
+  bottom: calc(15%);
   height: 70%;
   width: var(--door-width);
 }
 .tile.door.right::after {
-  right: 0px;
-  bottom: 15%;
+  right: -3px;
+  bottom: calc(15%);
   height: 70%;
   width: var(--door-width);
 }
@@ -79,7 +82,7 @@
 }
 
 .tile.building {
-  background: #b9b2ac;
+  /* background: #b9b2ac; */
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -88,6 +91,7 @@
 .tile img.background {
   width: 100%;
   height: 100%;
+  opacity: 0.5;
 }
 
 .tile.building img.background {
@@ -99,7 +103,7 @@
 }
 
 .tile.road {
-  background: #e8e8e8;
+  /* background: #e8e8e8; */
 }
 
 .tile.exit::after {
@@ -151,6 +155,7 @@
   font-weight: bold;
   color: black;
   position: absolute;
+  opacity: 0.5;
   left: 4px;
   top: 4px;
   background: rgba(255, 255, 255, 1);
@@ -160,4 +165,22 @@
   display: flex;
   align-items: center;
   justify-content: center;
+}
+.tile__zombies {
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  display: flex;
+  align-items: flex-start;
+  height: fit-content;
+  width: calc(100% - 10px);
+}
+.tile__players {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  display: flex;
+  align-items: flex-start;
+  height: fit-content;
+  width: calc(100% - 10px);
 }

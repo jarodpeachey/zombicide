@@ -331,6 +331,7 @@ function App() {
                         alt=""
                       />
                       <div className="tile__number">{index}</div>
+                      <div className="tile__zombies"></div>
                     </div>
                   )
                 }
