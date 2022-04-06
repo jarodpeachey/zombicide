@@ -35,7 +35,7 @@
     "level": 0,
     "hand": [],
     "backpack": [],
-    "active": true,
+    "active": false,
     "tile": 0,
     "actions": 4
   },
@@ -45,7 +45,7 @@
     "level": 0,
     "hand": [],
     "backpack": [],
-    "active": false,
+    "active": true,
     "tile": 0,
     "actions": 4
   }

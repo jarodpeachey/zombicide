@@ -9,21 +9,20 @@ export const ZombiesContext = createContext({})
 
 export default function ZombiesProvider({ strings, children }) {
   const [zombies, setZombies] = useState([])
+  const [zombieIndex, setZombieIndex] = useState(0)
   const [zombiesToGoAgain, setZombiesToGoAgain] = useState([])
   const delay = 0
 
   const createZombies = (items) => {
-    console.log(`ZOMBIES: `, zombies)
     let zombiesToCreate = []
 
     items.forEach((tileToSpawnIn, index) => {
       setTimeout(() => {
         let number = Math.floor(Math.random() * (8 - 1 + 1)) + 1
-        let type = 'walker'
+        let type = ''
         let goAgain = Math.floor(Math.random() * (3 - 1 + 1)) + 1
 
         if (zombiesToGoAgain.length > 0) {
-          console.log('GO AGAIN: ', goAgain === 1)
           if (goAgain === 1) {
             if (number === 1 || number === 2 || number === 3) {
               type = 'walker'
@@ -37,11 +36,14 @@ export default function ZombiesProvider({ strings, children }) {
               ...allZombies.filter((item) => item.type === type)[0],
               type: type,
               tile: tileToSpawnIn,
-              id: zombies.length > 0 ? zombies[zombies.length - 1].id + 1 : 0,
+              id: zombieIndex + index,
             }
 
-            zombiesToCreate.push(zombieToCreate)
-            createZombieElement(zombies, zombieToCreate)
+            if (type !== '') {
+              zombiesToCreate.push(zombieToCreate)
+            }
+            setZombieIndex(zombieIndex + 1)
+            // createZombieElement(zombies, zombieToCreate)
           }
         } else {
           if (number === 1 || number === 2 || number === 3) {
@@ -58,49 +60,57 @@ export default function ZombiesProvider({ strings, children }) {
             ...allZombies.filter((item) => item.type === type)[0],
             type: type,
             tile: tileToSpawnIn,
-            id: zombies.length > 0 ? zombies[zombies.length - 1].id + 1 : 0,
+            id: zombieIndex + index,
           }
 
-          zombiesToCreate.push(zombieToCreate)
           if (type !== '') {
-            createZombieElement(zombies, zombieToCreate)
+            zombiesToCreate.push(zombieToCreate)
           }
+          setZombieIndex(zombieIndex + 1)
+          // if (type !== '') {
+          //   createZombieElement(zombies, zombieToCreate)
+          // }
         }
       }, index * delay)
     })
 
     setTimeout(() => {
-      console.log(zombiesToCreate)
-      setZombies(zombiesToCreate)
+      let newZombies = [...zombies]
+      zombiesToCreate.forEach((item) => {
+        newZombies.push(item)
+      })
+      setZombies(newZombies)
+      // zombiesToCreate.forEach(zombieToCreate => {
+      //   createZombieElement(zombiesToCreate, zombieToCreate)
+      // })
       if (zombiesToGoAgain.length === 0) {
         setZombiesToGoAgain(items)
       }
     }, items.length * delay)
-    // } else {
-    //   alert("ONLY DOING 2 ZOMBIE CYCLES")
-    // }
   }
 
   useEffect(() => {
-    // if (zombiesToGoAgain) {
-    //   createZombies(zombiesToGoAgain)
-    // }
-  }, [zombies])
-
-  useEffect(() => {
-    console.log(zombiesToGoAgain)
     if (zombiesToGoAgain && zombiesToGoAgain.length > 0) {
       createZombies(zombiesToGoAgain)
     }
   }, [zombiesToGoAgain])
+
+  useEffect(() => {
+    console.log(zombies)
+    let things = document.querySelectorAll('.zombie')
+
+    things.forEach((item) => item.remove())
+
+    zombies.forEach((zombieToCreate) => {
+      createZombieElement(zombies, zombieToCreate)
+    })
+  }, [zombies])
 
   return (
     <ZombiesContext.Provider
       value={{
         zombies: zombies,
         createZombies: createZombies,
-        // zombieToCreate: zombieToCreate,
-        // setZombieToCreate: setZombieToCreate,
       }}
     >
       {children}

@@ -183,4 +183,5 @@
   align-items: flex-start;
   height: fit-content;
   width: calc(100% - 10px);
+  flex-wrap: wrap;
 }

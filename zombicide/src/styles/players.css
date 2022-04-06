@@ -1,16 +1,23 @@
 .player {
-  width: 30px;
-  height: 30px;
-  background: rgb(9, 215, 9);
+  width: 14px !important;
+  height: 14px !important;
+  min-width: 14px !important;
+  min-height: 14px !important;
+  max-width: 14px !important;
+  max-height: 14px !important;
+  background: rgb(18, 177, 18);
   border-radius: 999px;
-  border: 3px solid rgb(9, 215, 9);
+  border: 3px solid rgb(18, 177, 18);
   color: white;
   z-index: 999;
-  font-size: 12px;
+  font-weight: bold;
+  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
-  position: absolute;
+  margin-right: 3px;
+  margin-bottom: 3px;
+  /* position: absolute; */
   /* cursor: pointer; */
   /* display: none; */
 }

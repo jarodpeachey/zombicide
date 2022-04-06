@@ -50,8 +50,11 @@ const isValidMoveAttempt = (from, to) => {
       Math.abs(xTo - xFrom) <= tileFrom.clientHeight + 10 &&
       Math.abs(yTo - yFrom) <= tileFrom.clientHeight + 10 &&
       from.index !== to.index &&
-      !isWallInWay && !(Math.abs(xTo - xFrom) >= tileFrom.clientHeight - 10 &&
-      Math.abs(yTo - yFrom) >= tileFrom.clientHeight - 10)
+      !isWallInWay &&
+      !(
+        Math.abs(xTo - xFrom) >= tileFrom.clientHeight - 10 &&
+        Math.abs(yTo - yFrom) >= tileFrom.clientHeight - 10
+      )
     )
       return true
   }
@@ -59,6 +62,26 @@ const isValidMoveAttempt = (from, to) => {
 }
 
 const isValidDoorOpenAttempt = (from, to) => {
+  // let tileFrom = document.getElementById(`tile-${from.index}`)
+  // let tileTo = document.getElementById(`tile-${to.index}`)
+
+  // if (tileFrom && tileTo) {
+  //   let xFrom = tileFrom.getBoundingClientRect().x + tileFrom.clientWidth / 2
+  //   let yFrom = tileFrom.getBoundingClientRect().y + tileFrom.clientHeight / 2
+
+  //   let xTo = tileTo.getBoundingClientRect().x + tileTo.clientWidth / 2
+  //   let yTo = tileTo.getBoundingClientRect().y + tileTo.clientHeight / 2
+
+  //   if (
+  //     Math.abs(xTo - xFrom) <= tileFrom.clientHeight + 10 &&
+  //     Math.abs(yTo - yFrom) <= tileFrom.clientHeight + 10 &&
+  //     (from.door === true || to.door === true) &&
+  //     (from.doorOpen === false || to.doorOpen === false)
+  //   )
+  //     return true
+  // }
+  // return false
+
   let tileFrom = document.getElementById(`tile-${from.index}`)
   let tileTo = document.getElementById(`tile-${to.index}`)
 
@@ -72,7 +95,13 @@ const isValidDoorOpenAttempt = (from, to) => {
     if (
       Math.abs(xTo - xFrom) <= tileFrom.clientHeight + 10 &&
       Math.abs(yTo - yFrom) <= tileFrom.clientHeight + 10 &&
-      (from.door === true || to.door === true) && (from.doorOpen === false || to.doorOpen === false)
+      from.index !== to.index &&
+      (from.door === true || to.door === true) &&
+      (from.doorOpen === false || to.doorOpen === false) &&
+      !(
+        Math.abs(xTo - xFrom) >= tileFrom.clientHeight - 10 &&
+        Math.abs(yTo - yFrom) >= tileFrom.clientHeight - 10
+      )
     )
       return true
   }
@@ -81,8 +110,18 @@ const isValidDoorOpenAttempt = (from, to) => {
 
 function App() {
   const app = useTiles()
-  const { players, setActivePlayer, playerToMove, activePlayer, playerMoving, setPlayerMoving } =
-    usePlayers()
+  const {
+    players,
+    setActivePlayer,
+    activePlayerIndex,
+    setActivePlayerIndex,
+    endRound,
+    playerToMove,
+    activePlayer,
+    playerMoving,
+    setPlayerMoving,
+    decrementAction,
+  } = usePlayers()
   const {
     setTileToMoveTo,
     tiles,
@@ -159,21 +198,21 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    players.forEach((player) => {
-      document.getElementById(
-        `${player.name.toLowerCase()}`
-      ).style.left = `${calculateLeft(player)}px`
-      document.getElementById(
-        `${player.name.toLowerCase()}`
-      ).style.top = `${calculateTop(player)}px`
-    })
-  }, [players])
+  // useEffect(() => {
+  //   players.forEach((player) => {
+  //     document.getElementById(
+  //       `${player.name.toLowerCase()}`
+  //     ).style.left = `${calculateLeft(player)}px`
+  //     document.getElementById(
+  //       `${player.name.toLowerCase()}`
+  //     ).style.top = `${calculateTop(player)}px`
+  //   })
+  // }, [players])
 
   return (
     <>
       <div className="game" id="game">
-        {players &&
+        {/* {players &&
           players.length > 0 &&
           players.map((player) => {
             return (
@@ -192,10 +231,10 @@ function App() {
                   setActivePlayer(player)
                 }}
               >
-                {player.name}
+                {player.name.charAt(0)}
               </div>
             )
-          })}
+          })} */}
         {activePlayer && (
           <div className="control-panel">
             <div className="control-panel__inner">
@@ -222,6 +261,8 @@ function App() {
               <h4>ACTIONS</h4>
               <div style={{ display: 'flex' }}>
                 <button
+                  disabled={activePlayer.actions === 0}
+                  title={activePlayer.actions === 0 ? "You have no actions left" : playerMoving ? 'Cancel' : 'Move'}
                   className="btn"
                   onClick={() => {
                     if (playerMoving) {
@@ -234,6 +275,8 @@ function App() {
                   {playerMoving ? 'Cancel' : 'Move'}
                 </button>
                 <button
+                  disabled={activePlayer.actions === 0}
+                  title={activePlayer.actions === 0 ? "You have no actions left" : openingDoor ? 'Cancel' : 'Open Door'}
                   className="btn"
                   onClick={() => {
                     if (openingDoor) {
@@ -245,10 +288,37 @@ function App() {
                 >
                   {openingDoor ? 'Cancel' : 'Open Door'}
                 </button>
-                <button className="btn">Search</button>
-                <button className="btn">Attack</button>
-                <button className="btn">End turn</button>
+                <button disabled={activePlayer.actions === 0}
+                title={activePlayer.actions === 0 ? "You have no actions left" : 'Search'} className="btn">
+                  Search
+                </button>
+                <button disabled={activePlayer.actions === 0}
+                title={activePlayer.actions === 0 ? "You have no actions left" : 'Attack'} className="btn">
+                  Attack
+                </button>
+                <button
+                title={activePlayerIndex === players.length - 1 ? 'End round' : 'End turn'}
+                  onClick={() => {
+                    if (activePlayerIndex === players.length - 1) {
+                      endRound()
+                    } else {
+                      setActivePlayerIndex(activePlayerIndex + 1)
+                    }
+                  }}
+                  className="btn"
+                >
+                  End{' '}
+                  {activePlayerIndex === players.length - 1 ? 'round' : 'turn'}
+                </button>
               </div>
+              <br />
+              <br />
+              <h4>NEXT PLAYERS</h4>
+              {players.map((item, index) => {
+                if (index !== activePlayerIndex && index > activePlayerIndex) {
+                  return <p>{item.name}</p>
+                }
+              })}
             </div>
           </div>
         )}
@@ -318,6 +388,7 @@ function App() {
                           ) {
                             if (confirm(`Do you want to open this door?`)) {
                               setTileToOpenDoor(index)
+                              decrementAction()
                             }
                           } else {
                             alert("You can't open this door")
@@ -332,6 +403,7 @@ function App() {
                       />
                       <div className="tile__number">{index}</div>
                       <div className="tile__zombies"></div>
+                      <div className="tile__players"></div>
                     </div>
                   )
                 }

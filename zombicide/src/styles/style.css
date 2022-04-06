@@ -102,6 +102,6 @@ h4 {
   white-space: nowrap;
 }
 
-.btn:hover {
+.btn:not(:disabled):hover {
   filter: brightness(80%);
 }
