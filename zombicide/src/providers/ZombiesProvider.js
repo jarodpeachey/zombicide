@@ -15,6 +15,7 @@ export default function ZombiesProvider({ strings, children }) {
 
   const createZombies = (items) => {
     let zombiesToCreate = []
+    let addToIndex = 1
 
     items.forEach((tileToSpawnIn, index) => {
       setTimeout(() => {
@@ -36,13 +37,13 @@ export default function ZombiesProvider({ strings, children }) {
               ...allZombies.filter((item) => item.type === type)[0],
               type: type,
               tile: tileToSpawnIn,
-              id: zombieIndex + index,
+              id: zombieIndex + addToIndex,
             }
 
             if (type !== '') {
               zombiesToCreate.push(zombieToCreate)
+              addToIndex++
             }
-            setZombieIndex(zombieIndex + 1)
             // createZombieElement(zombies, zombieToCreate)
           }
         } else {
@@ -60,13 +61,29 @@ export default function ZombiesProvider({ strings, children }) {
             ...allZombies.filter((item) => item.type === type)[0],
             type: type,
             tile: tileToSpawnIn,
-            id: zombieIndex + index,
+            id: zombieIndex + addToIndex,
           }
 
           if (type !== '') {
             zombiesToCreate.push(zombieToCreate)
+            addToIndex++
           }
-          setZombieIndex(zombieIndex + 1)
+          if (type === 'fattie') {
+            zombiesToCreate.push({
+              ...allZombies.filter((item) => item.type === type)[0],
+              type: 'walker',
+              tile: tileToSpawnIn,
+              id: zombieIndex + addToIndex,
+            })
+            addToIndex++
+            zombiesToCreate.push({
+              ...allZombies.filter((item) => item.type === type)[0],
+              type: 'walker',
+              tile: tileToSpawnIn,
+              id: zombieIndex + addToIndex,
+            })
+            addToIndex++
+          }
           // if (type !== '') {
           //   createZombieElement(zombies, zombieToCreate)
           // }
@@ -80,9 +97,8 @@ export default function ZombiesProvider({ strings, children }) {
         newZombies.push(item)
       })
       setZombies(newZombies)
-      // zombiesToCreate.forEach(zombieToCreate => {
-      //   createZombieElement(zombiesToCreate, zombieToCreate)
-      // })
+      setZombieIndex(zombiesToCreate.length + zombieIndex)
+
       if (zombiesToGoAgain.length === 0) {
         setZombiesToGoAgain(items)
       }
@@ -96,7 +112,8 @@ export default function ZombiesProvider({ strings, children }) {
   }, [zombiesToGoAgain])
 
   useEffect(() => {
-    console.log(zombies)
+    console.log('ZOMBIE INDEX: ', zombieIndex)
+    console.log('ZOMBIES: ', zombies)
     let things = document.querySelectorAll('.zombie')
 
     things.forEach((item) => item.remove())

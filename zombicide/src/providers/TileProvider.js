@@ -182,21 +182,12 @@ export default function TileProvider({ strings, children }) {
     let hasBeenChecked = []
     let keepChecking = true
 
-    console.log(
-      'BUILDING TILES ALREADY DISCOVERED: ',
-      buildingTilesAlreadyDiscovered
-    )
-    console.log('START TILE: ', startingTile)
-
     if (!buildingTilesAlreadyDiscovered.includes(startingTile)) {
       checkNextTo(startingTile)
 
       function checkNextTo(tileToCheck) {
         let tilesNextTo = getTilesNextTo(tileToCheck)
         hasBeenChecked.push(tileToCheck)
-        // console.log(`RUNNING SPAWN ZOMBIES FOR TILE ${tileToCheck}`)
-        // console.log('TILES NEXT TO: ', tilesNextTo)
-        // console.log('TILES THAT HAVE BEEN CHECKED: ', hasBeenChecked)
 
         if (keepChecking) {
           tilesNextTo.forEach((item, index) => {
@@ -215,8 +206,6 @@ export default function TileProvider({ strings, children }) {
           })
         }
       }
-
-      // console.log('TILES IN BUILDING: ', tilesToSpawnIn)
 
       if (!keepChecking) {
         // tilesToSpawnIn.forEach((item) => {

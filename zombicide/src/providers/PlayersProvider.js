@@ -46,17 +46,13 @@ export default function PlayersProvider({ strings, children }) {
       actions: activePlayer.actions - 1,
     }
 
-    console.log('Players before move: ', players)
     newPlayers.splice(activePlayerIndex, 1, updatedPlayer)
-    console.log('Players after splice: ', newPlayers)
 
     setPlayers(newPlayers)
     // setActivePlayer(updatedPlayer)
   }
 
   useEffect(() => {
-    console.log(players[activePlayerIndex])
-
     if (activePlayerIndex) {
       setActivePlayer({ ...players[activePlayerIndex], actions: 4 })
     }
@@ -81,21 +77,12 @@ export default function PlayersProvider({ strings, children }) {
         actions: activePlayer.actions - 1,
       }
 
-      // newPlayers.push(newPlayers.pop(activePlayerIndex))
-
-      console.log('Players before move: ', players)
-      // newPlayers.splice(activePlayerIndex, 1)
-      // console.log("Players after pop: ", newPlayers)
       newPlayers.splice(activePlayerIndex, 1, updatedPlayer)
-      console.log('Players after splice: ', newPlayers)
 
       setPlayers(newPlayers)
-      // setActivePlayer(updatedPlayer)
 
       setPlayerMoving(false)
       setActivePlayer({ ...activePlayer, tile: tilesProvider.tileToMoveTo })
-    } else {
-      console.log(activePlayer)
     }
   }, [tilesProvider.tileToMoveTo])
 

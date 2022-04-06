@@ -10,12 +10,10 @@ const PlayerToken = ({ player, tile }) => {
   // const player = useContext(context)
   const players = usePlayers()
 
-  console.log(tile, player.tile);
   return (
     <div
       className={`player ${tile === player.tile && 'active'}`}
       onClick={() => {
-        console.log('onPlayerClick')
         players.setPlayerToMove(player)
       }}
     >
