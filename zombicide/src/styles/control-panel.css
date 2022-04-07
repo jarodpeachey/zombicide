@@ -13,7 +13,7 @@
   border: 2px solid #ffffff10;
 }
 
-.control-panel button {
+.control-panel .action-button {
   margin-right: 8px;
   width: 80px;
   padding-left: 0;
@@ -21,9 +21,9 @@
   text-align: center;
 }
 
-.control-panel button:disabled {cursor: not-allowed;filter:brightness(50%);}
-.control-panel button:nth-child(1) {background: rgb(151, 151, 193);}
-.control-panel button:nth-child(2) {background: rgb(126, 187, 140);}
-.control-panel button:nth-child(3) {background: rgb(217, 217, 134);}
-.control-panel button:nth-child(4) {background: rgb(198, 72, 72);}
+.control-panel .action-button:disabled {cursor: not-allowed;filter:brightness(50%);}
+.control-panel .action-button:nth-child(1) {background: rgb(151, 151, 193);}
+.control-panel .action-button:nth-child(2) {background: rgb(126, 187, 140);}
+.control-panel .action-button:nth-child(3) {background: rgb(217, 217, 134);}
+.control-panel .action-button:nth-child(4) {background: rgb(198, 72, 72);}
 /* .control-panel button:nth-child(4) {background: blue;} */

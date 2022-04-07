@@ -6,6 +6,10 @@ import LootProvider from './providers/LootProvider'
 import PlayersProvider from './providers/PlayersProvider'
 import ZombiesProvider from './providers/ZombiesProvider'
 import { AppTwoProvider } from './hooks/useAppTwo'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { faPlus, faRemove } from '@fortawesome/free-solid-svg-icons'
+
+library.add(faPlus, faRemove)
 
 ReactDOM.render(
   <React.StrictMode>
@@ -14,7 +18,7 @@ ReactDOM.render(
         <PlayersProvider>
           <LootProvider>
             {/* <AppTwoProvider> */}
-              <App />
+            <App />
             {/* </AppTwoProvider> */}
           </LootProvider>
         </PlayersProvider>

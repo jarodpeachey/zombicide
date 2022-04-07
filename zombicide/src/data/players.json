@@ -3,7 +3,18 @@
     "name": "Josh",
     "kills": 0,
     "level": 0,
-    "hand": [],
+    "hand": [
+      {
+        "title": "Pistol",
+        "range": 1,
+        "dice": 1,
+        "damage": 1,
+        "required": 4,
+        "silent": false,
+        "door": false,
+        "quantity": 8
+      }
+    ],
     "backpack": [],
     "active": true,
     "tile": 0,
@@ -13,7 +24,18 @@
     "name": "Doug",
     "kills": 0,
     "level": 0,
-    "hand": [],
+    "hand": [
+      {
+        "title": "Pistol",
+        "range": 1,
+        "dice": 1,
+        "damage": 1,
+        "required": 4,
+        "silent": false,
+        "door": false,
+        "quantity": 8
+      }
+    ],
     "backpack": [],
     "active": true,
     "tile": 0,
@@ -23,7 +45,18 @@
     "name": "Ned",
     "kills": 0,
     "level": 0,
-    "hand": [],
+    "hand": [
+      {
+        "title": "Pistol",
+        "range": 1,
+        "dice": 1,
+        "damage": 1,
+        "required": 4,
+        "silent": false,
+        "door": false,
+        "quantity": 8
+      }
+    ],
     "backpack": [],
     "active": true,
     "tile": 0,
@@ -33,7 +66,18 @@
     "name": "Jim",
     "kills": 0,
     "level": 0,
-    "hand": [],
+    "hand": [
+      {
+        "title": "Pistol",
+        "range": 1,
+        "dice": 1,
+        "damage": 1,
+        "required": 4,
+        "silent": false,
+        "door": false,
+        "quantity": 8
+      }
+    ],
     "backpack": [],
     "active": false,
     "tile": 0,
@@ -43,7 +87,18 @@
     "name": "Wanda",
     "kills": 0,
     "level": 0,
-    "hand": [],
+    "hand": [
+      {
+        "title": "Pistol",
+        "range": 1,
+        "dice": 1,
+        "damage": 1,
+        "required": 4,
+        "silent": false,
+        "door": false,
+        "quantity": 8
+      }
+    ],
     "backpack": [],
     "active": true,
     "tile": 0,

@@ -7,6 +7,7 @@ import './styles/control-panel.css'
 import './styles/tiles.css'
 import './styles/players.css'
 import './styles/zombies.css'
+import './styles/card.css'
 import building_1 from './images/building_1.JPG'
 import building_2 from './images/building_2.JPG'
 import building_3 from './images/building_3.JPG'
@@ -23,9 +24,7 @@ import road_right_top from './images/road_right_top.jpg'
 import road_right_bottom from './images/road_right_bottom.jpg'
 import road_triple_left from './images/road_triple_left.jpg'
 import road_triple_right from './images/road_triple_right.jpg'
-import Player from './components/Player'
-import PlayerToken from './components/PlayerToken'
-import { useEffect } from 'react'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 
 const isValidMoveAttempt = (from, to) => {
   let tileFrom = document.getElementById(`tile-${from.index}`)
@@ -262,9 +261,74 @@ function App() {
                 </span>
               </p>
               <br />
+              <h4>HAND</h4>
+              <div className="cards">
+                {activePlayer.hand &&
+                  activePlayer.hand.length > 0 &&
+                  activePlayer.hand.map((card, index) => {
+                    return (
+                      <div className="card">
+                        <button
+                          onClick={() => {
+                            // if (confirm("Are you sure you want to get rid of this card?")) {
+                            //   removeCardFromHand(card.title)
+                            // }
+                          }}
+                          className="card__delete"
+                          title="Remove card from hand"
+                        >
+                          <FontAwesomeIcon size="sm" icon="remove" />
+                        </button>
+                        <div className="card__title">{card.title}</div>
+                        <div className="card__details">
+                          <p>
+                            <div className="card__detail">
+                              <strong>Dice</strong>
+                              <span>{card.dice}</span>
+                            </div>
+                          </p>
+                          <p>
+                            <div className="card__detail">
+                              <strong>Range</strong>
+                              <span>{card.range}</span>
+                            </div>
+                          </p>
+                          <p>
+                            <div className="card__detail">
+                              <strong>Required</strong>
+                              <span>{card.required}</span>
+                            </div>
+                          </p>
+                          <p>
+                            <div className="card__detail">
+                              <strong>Damage</strong>
+                              <span>{card.damage}</span>
+                            </div>
+                          </p>
+                        </div>
+                      </div>
+                    )
+                  })}
+                {activePlayer.hand && activePlayer.hand.length === 1 ? (
+                  <div className="card placeholder">
+                    <FontAwesomeIcon size="lg" icon="plus" className="icon" />
+                  </div>
+                ) : (
+                  <>
+                    <div className="card placeholder">
+                      <FontAwesomeIcon size="lg" icon="plus" className="icon" />
+                    </div>
+                    <div className="card placeholder">
+                      <FontAwesomeIcon size="lg" icon="plus" className="icon" />
+                    </div>
+                  </>
+                )}
+              </div>
+              <br />
               <h4>ACTIONS</h4>
               <div style={{ display: 'flex' }}>
                 <button
+                  className="action-button btn"
                   disabled={
                     activePlayer.actions === 0 ||
                     isPlayerOpeningDoor ||
@@ -278,7 +342,6 @@ function App() {
                       ? 'Cancel'
                       : 'Move'
                   }
-                  className="btn"
                   onClick={() => {
                     if (isPlayerMoving) {
                       setIsPlayerMoving(false)
@@ -290,6 +353,7 @@ function App() {
                   {isPlayerMoving ? 'Cancel' : 'Move'}
                 </button>
                 <button
+                  className="action-button btn"
                   disabled={
                     activePlayer.actions === 0 ||
                     isPlayerMoving ||
@@ -303,7 +367,6 @@ function App() {
                       ? 'Cancel'
                       : 'Open Door'
                   }
-                  className="btn"
                   onClick={() => {
                     if (isPlayerOpeningDoor) {
                       setIsPlayerOpeningDoor(false)
@@ -315,6 +378,7 @@ function App() {
                   {isPlayerOpeningDoor ? 'Cancel' : 'Open Door'}
                 </button>
                 <button
+                  className="action-button btn"
                   disabled={
                     activePlayer.actions === 0 ||
                     isPlayerMoving ||
@@ -326,11 +390,11 @@ function App() {
                       ? 'You have no actions left'
                       : 'Search'
                   }
-                  className="btn"
                 >
                   Search
                 </button>
                 <button
+                  className="action-button btn"
                   disabled={
                     activePlayer.actions === 0 ||
                     isPlayerMoving ||
@@ -342,11 +406,11 @@ function App() {
                       ? 'You have no actions left'
                       : 'Attack'
                   }
-                  className="btn"
                 >
                   Attack
                 </button>
                 <button
+                  className="action-button btn"
                   title={
                     activePlayerIndex === players.length - 1
                       ? 'End round'
@@ -365,7 +429,6 @@ function App() {
                       setActivePlayerIndex(activePlayerIndex + 1)
                     }
                   }}
-                  className="btn"
                 >
                   End{' '}
                   {activePlayerIndex === players.length - 1 ? 'round' : 'turn'}

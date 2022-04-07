@@ -33,7 +33,8 @@
     "required": 4,
     "silent": false,
     "door": false,
-    "quantity": 8
+    "quantity": 8,
+    "start": true
   },
   {
     "title": "Rifle",
