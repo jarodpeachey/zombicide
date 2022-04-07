@@ -118,15 +118,19 @@ function App() {
     endRound,
     playerToMove,
     activePlayer,
-    playerMoving,
-    setPlayerMoving,
+    isPlayerMoving,
+    setIsPlayerMoving,
+    isPlayerAttacking = false,
+    setIsPlayerAttacking,
+    isPlayerSearching = false,
+    setIsPlayerSearching,
     decrementAction,
   } = usePlayers()
   const {
     setTileToMoveTo,
     tiles,
-    setOpeningDoor,
-    openingDoor,
+    setIsPlayerOpeningDoor,
+    isPlayerOpeningDoor,
     setTileToOpenDoor,
   } = useTiles()
 
@@ -261,43 +265,99 @@ function App() {
               <h4>ACTIONS</h4>
               <div style={{ display: 'flex' }}>
                 <button
-                  disabled={activePlayer.actions === 0}
-                  title={activePlayer.actions === 0 ? "You have no actions left" : playerMoving ? 'Cancel' : 'Move'}
+                  disabled={
+                    activePlayer.actions === 0 ||
+                    isPlayerOpeningDoor ||
+                    isPlayerSearching ||
+                    isPlayerAttacking
+                  }
+                  title={
+                    activePlayer.actions === 0
+                      ? 'You have no actions left'
+                      : isPlayerMoving
+                      ? 'Cancel'
+                      : 'Move'
+                  }
                   className="btn"
                   onClick={() => {
-                    if (playerMoving) {
-                      setPlayerMoving(false)
+                    if (isPlayerMoving) {
+                      setIsPlayerMoving(false)
                     } else {
-                      setPlayerMoving(true)
+                      setIsPlayerMoving(true)
                     }
                   }}
                 >
-                  {playerMoving ? 'Cancel' : 'Move'}
+                  {isPlayerMoving ? 'Cancel' : 'Move'}
                 </button>
                 <button
-                  disabled={activePlayer.actions === 0}
-                  title={activePlayer.actions === 0 ? "You have no actions left" : openingDoor ? 'Cancel' : 'Open Door'}
+                  disabled={
+                    activePlayer.actions === 0 ||
+                    isPlayerMoving ||
+                    isPlayerSearching ||
+                    isPlayerAttacking
+                  }
+                  title={
+                    activePlayer.actions === 0
+                      ? 'You have no actions left'
+                      : isPlayerOpeningDoor
+                      ? 'Cancel'
+                      : 'Open Door'
+                  }
                   className="btn"
                   onClick={() => {
-                    if (openingDoor) {
-                      setOpeningDoor(false)
+                    if (isPlayerOpeningDoor) {
+                      setIsPlayerOpeningDoor(false)
                     } else {
-                      setOpeningDoor(true)
+                      setIsPlayerOpeningDoor(true)
                     }
                   }}
                 >
-                  {openingDoor ? 'Cancel' : 'Open Door'}
+                  {isPlayerOpeningDoor ? 'Cancel' : 'Open Door'}
                 </button>
-                <button disabled={activePlayer.actions === 0}
-                title={activePlayer.actions === 0 ? "You have no actions left" : 'Search'} className="btn">
+                <button
+                  disabled={
+                    activePlayer.actions === 0 ||
+                    isPlayerMoving ||
+                    isPlayerOpeningDoor ||
+                    isPlayerAttacking
+                  }
+                  title={
+                    activePlayer.actions === 0
+                      ? 'You have no actions left'
+                      : 'Search'
+                  }
+                  className="btn"
+                >
                   Search
                 </button>
-                <button disabled={activePlayer.actions === 0}
-                title={activePlayer.actions === 0 ? "You have no actions left" : 'Attack'} className="btn">
+                <button
+                  disabled={
+                    activePlayer.actions === 0 ||
+                    isPlayerMoving ||
+                    isPlayerSearching ||
+                    isPlayerOpeningDoor
+                  }
+                  title={
+                    activePlayer.actions === 0
+                      ? 'You have no actions left'
+                      : 'Attack'
+                  }
+                  className="btn"
+                >
                   Attack
                 </button>
                 <button
-                title={activePlayerIndex === players.length - 1 ? 'End round' : 'End turn'}
+                  title={
+                    activePlayerIndex === players.length - 1
+                      ? 'End round'
+                      : 'End turn'
+                  }
+                  disabled={
+                    isPlayerMoving ||
+                    isPlayerSearching ||
+                    isPlayerAttacking ||
+                    isPlayerOpeningDoor
+                  }
                   onClick={() => {
                     if (activePlayerIndex === players.length - 1) {
                       endRound()
@@ -341,8 +401,8 @@ function App() {
                           )[0],
                           tile
                         ) &&
-                          playerMoving) ||
-                        (openingDoor &&
+                          isPlayerMoving) ||
+                        (isPlayerOpeningDoor &&
                           isValidDoorOpenAttempt(
                             tiles.filter(
                               (item) => item.index === activePlayer.tile
@@ -358,7 +418,7 @@ function App() {
                       } ${tile.start && 'start'} ${tile.type}`}
                       id={`tile-${tile.index}`}
                       onClick={() => {
-                        if (playerMoving) {
+                        if (isPlayerMoving) {
                           if (
                             isValidMoveAttempt(
                               tiles.filter(
@@ -377,7 +437,7 @@ function App() {
                           } else {
                             alert('You can only move 1 space at a time')
                           }
-                        } else if (openingDoor) {
+                        } else if (isPlayerOpeningDoor) {
                           if (
                             isValidDoorOpenAttempt(
                               tiles.filter(

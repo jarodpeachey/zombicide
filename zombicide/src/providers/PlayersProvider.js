@@ -10,13 +10,16 @@ export const PlayersContext = createContext({})
 export default function PlayersProvider({ strings, children }) {
   const tilesProvider = useTiles()
   const [players, setPlayers] = useState([])
-  const [playerMoving, setPlayerMoving] = useState(false)
+  const [isPlayerMoving, setIsPlayerMoving] = useState(false)
   const [activePlayerIndex, setActivePlayerIndex] = useState(0)
-  // const [actionsRemaining, setActivePlayerIndex] = useState(0)
   const [activePlayer, setActivePlayer] = useState({})
 
+  ///////////////////////////////////////////////////
+  ////////// CREATE PLAYERS FROM DATA FILE //////////
+  ///////////////////////////////////////////////////
   useEffect(() => {
     let activePlayers = []
+
     allPlayers.forEach((player) => {
       if (player.active) {
         activePlayers.push({ ...player, tile: tilesProvider.startTile })
@@ -25,20 +28,52 @@ export default function PlayersProvider({ strings, children }) {
 
     setPlayers(activePlayers)
     setActivePlayerIndex(0)
+    console.log('SETTING ACTIVE PLAYER FROM LINE 31')
     setActivePlayer(activePlayers[0])
+
+    // CREATE PLAYER ELEMENTS ON THE BOARD IF TILES ARE INITIALIZED
+    let interval = setInterval(() => {
+      if (document.getElementById('tile-0')) {
+        activePlayers.forEach((player) => {
+          createPlayerElement(activePlayers, player)
+        })
+
+        clearInterval(interval)
+      }
+    }, 300)
   }, [])
 
+  ///////////////////////////////////////////////////
+  /////////// ADD PLAYERS + ACTIVE PLAYER ///////////
+  ///////////////////////////////////////////////////
+  useEffect(() => {
+    if (players && players.length > 0) {
+      // SET ACTIVE PLAYER
+      // console.log('SETTING ACTIVE PLAYER FROM LINE 129')
+      // setActivePlayer(players[activePlayerIndex])
+
+      players.forEach((player) => {
+        createPlayerElement(players, player)
+      })
+    }
+  }, [players])
+
+  ///////////////////////////////////////////////////
+  ///////////////// END ROUND LOGIC /////////////////
+  ///////////////////////////////////////////////////
   const endRound = () => {
+    setActivePlayerIndex(0)
     setPlayers([
       ...players.filter((item, index) => index !== 0),
       {
         ...players[0],
       },
     ])
-    setActivePlayerIndex(0)
-    alert('A new round begins!')
   }
 
+  ///////////////////////////////////////////////////
+  ///////// DECREMENT ACTIVE PLAYER ACTIONS /////////
+  ///////////////////////////////////////////////////
   const decrementAction = () => {
     let newPlayers = [...players]
     let updatedPlayer = {
@@ -49,24 +84,33 @@ export default function PlayersProvider({ strings, children }) {
     newPlayers.splice(activePlayerIndex, 1, updatedPlayer)
 
     setPlayers(newPlayers)
-    // setActivePlayer(updatedPlayer)
   }
 
+  ///////////////////////////////////////////////////
+  ////////////// UPDATE ACTIVE PLAYER ///////////////
+  ///////////////////////////////////////////////////
   useEffect(() => {
-    if (activePlayerIndex) {
-      setActivePlayer({ ...players[activePlayerIndex], actions: 4 })
+    console.log('ACTIVE PLAYER INDEX CHANGED')
+    let newPlayer = { ...players[activePlayerIndex], actions: 4 }
+    if (players.length > 0) {
+      console.log('SETTING ACTIVE PLAYER FROM LINE 96')
+      setActivePlayer(newPlayer)
     }
   }, [activePlayerIndex])
 
   useEffect(() => {
-    if (playerMoving) {
-      tilesProvider.setPlayerMoving(true)
+    console.log('NEW ACTIVE PLAYER: ', activePlayer)
+  }, [activePlayer])
+
+  useEffect(() => {
+    if (isPlayerMoving) {
+      tilesProvider.setIsPlayerMoving(true)
       // tilesProvider.setTileToMoveFrom(activePlayer.tile)
     } else {
-      tilesProvider.setPlayerMoving(false)
+      tilesProvider.setIsPlayerMoving(false)
       tilesProvider.setTileToMoveTo(null)
     }
-  }, [playerMoving])
+  }, [isPlayerMoving])
 
   useEffect(() => {
     if (tilesProvider.tileToMoveTo) {
@@ -81,30 +125,18 @@ export default function PlayersProvider({ strings, children }) {
 
       setPlayers(newPlayers)
 
-      setPlayerMoving(false)
-      setActivePlayer({ ...activePlayer, tile: tilesProvider.tileToMoveTo })
+      setIsPlayerMoving(false)
+      console.log('SETTING ACTIVE PLAYER FROM LINE 129')
+      setActivePlayer(updatedPlayer)
     }
   }, [tilesProvider.tileToMoveTo])
-
-  useEffect(() => {
-    if (players && players.length > 0) {
-      // SET ACTIVE PLAYER
-      setActivePlayer(players[activePlayerIndex])
-
-      // SET PLAYER POSITION
-      // const playerElements = document.querySelectorAll('.player')
-      players.forEach((player) => {
-        createPlayerElement(players, player)
-      })
-    }
-  }, [players])
 
   return (
     <PlayersContext.Provider
       value={{
         players: players,
-        playerMoving: playerMoving,
-        setPlayerMoving: setPlayerMoving,
+        isPlayerMoving: isPlayerMoving,
+        setIsPlayerMoving: setIsPlayerMoving,
         activePlayer: activePlayer,
         setActivePlayer: setActivePlayer,
         activePlayerIndex: activePlayerIndex,

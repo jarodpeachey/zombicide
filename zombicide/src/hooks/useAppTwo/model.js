@@ -23,7 +23,7 @@ export const initialState = {
 //   tileToMoveTo: null,
 //   startTile: null,
 //   tileToOpenDoor: null,
-//   openingDoor: false,
+//   isPlayerOpeningDoor: false,
 //   createZombies: false,
 //   buildingTilesAlreadyDiscovered: [],
 

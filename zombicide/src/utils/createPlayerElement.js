@@ -8,9 +8,6 @@ export const createPlayerElement = (players, playerToCreate) => {
   if (previousPlayerElement) {
     previousPlayerElement.remove()
   }
-  // let playersInTile = players.filter(
-  //   (item) => item.tile === playerToCreate.tile
-  // )
 
   let player = document.createElement('div')
   player.className = `player`

@@ -9,11 +9,11 @@ export const TileContext = createContext({})
 
 export default function TileProvider({ strings, children }) {
   const [tiles, setTiles] = useState([...tileTemplates])
-  const [playerMoving, setPlayerMoving] = useState(false)
+  const [isPlayerMoving, setIsPlayerMoving] = useState(false)
   const [tileToMoveTo, setTileToMoveTo] = useState(null)
   const [startTile, setStartTile] = useState(48)
   const [tileToOpenDoor, setTileToOpenDoor] = useState(null)
-  const [openingDoor, setOpeningDoor] = useState(false)
+  const [isPlayerOpeningDoor, setIsPlayerOpeningDoor] = useState(false)
   const { createZombies, setZombieToCreate, setGoAgain } = useZombies()
   const [buildingTilesAlreadyDiscovered, setBuildingTilesAlreadyDiscovered] =
     useState([])
@@ -122,7 +122,7 @@ export default function TileProvider({ strings, children }) {
       spawnZombies(tileToOpenDoor)
 
       setTileToOpenDoor(null)
-      setOpeningDoor(false)
+      setIsPlayerOpeningDoor(false)
     }
   }, [tileToOpenDoor, tiles])
 
@@ -227,12 +227,12 @@ export default function TileProvider({ strings, children }) {
         startTile: startTile,
         tiles: tiles,
         exitTile: exitTile,
-        playerMoving: playerMoving,
-        setPlayerMoving: setPlayerMoving,
+        isPlayerMoving: isPlayerMoving,
+        setIsPlayerMoving: setIsPlayerMoving,
         tileToMoveTo: tileToMoveTo,
         setTileToMoveTo: setTileToMoveTo,
-        openingDoor: openingDoor,
-        setOpeningDoor: setOpeningDoor,
+        isPlayerOpeningDoor: isPlayerOpeningDoor,
+        setIsPlayerOpeningDoor: setIsPlayerOpeningDoor,
         setTileToOpenDoor: setTileToOpenDoor,
         tileToOpenDoor: tileToOpenDoor,
       }}
