@@ -147,6 +147,11 @@ export default function PlayersProvider({ strings, children }) {
       })
 
       setDiceToDisplay(attackDiceToDisplay)
+      setMessageToDisplay(`You rolled ${dice.length} dice to attack: `)
+      setTimeout(() => {
+        setMessageToDisplay('Choose your next action')
+        setDiceToDisplay([])
+      }, 3000)
       decrementAction()
       setIsPlayerAttacking(false)
       setCardToAttackWith({})
@@ -157,6 +162,7 @@ export default function PlayersProvider({ strings, children }) {
   useEffect(() => {
     if (tilesProvider.tileToOpenDoor) {
       decrementAction()
+      setMessageToDisplay('Choose your next action')
     }
   }, [tilesProvider.tileToOpenDoor])
 
@@ -201,7 +207,7 @@ export default function PlayersProvider({ strings, children }) {
 
     setIsPlayerMoving(false)
     setActivePlayer(updatedPlayer)
-    setMessageToDisplay('Choose your next action')
+    // setMessageToDisplay('Choose your next action')
   }
 
   return (

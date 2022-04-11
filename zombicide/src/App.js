@@ -201,7 +201,6 @@ function App() {
         )}
         {diceToDisplay.length > 0 && (
           <div style={{ display: 'flex', alignItems: 'center' }}>
-            <p style={{ margin: 0, marginRight: 8 }}>Dice Rolled: </p>
             {diceToDisplay.map((die) => {
               console.log('DIE: ', die)
               return <div className={`die ${die.type}`}>{die.value}</div>
@@ -518,7 +517,9 @@ function App() {
                               zombies
                             )
                           ) {
-                            setTileToAttack(index)
+                             if (confirm(`Do you want to attack this tile?`)) {
+                              setTileToAttack(index)
+                            }
                           } else {
                             setMessageToDisplay(
                               "OOPS. You can't attack this tile"
