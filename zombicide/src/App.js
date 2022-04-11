@@ -25,6 +25,57 @@ import road_right_bottom from './images/road_right_bottom.jpg'
 import road_triple_left from './images/road_triple_left.jpg'
 import road_triple_right from './images/road_triple_right.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import Card from './components/Card'
+import { useZombies } from './providers/ZombiesProvider'
+
+const isValidAttackAttempt = (from, to, cardToAttackWith, zombies) => {
+  let tileFrom = document.getElementById(`tile-${from.index}`)
+  let tileTo = document.getElementById(`tile-${to.index}`)
+
+  if (tileFrom && tileTo) {
+    let xFrom = tileFrom.getBoundingClientRect().x + tileFrom.clientWidth / 2
+    let yFrom = tileFrom.getBoundingClientRect().y + tileFrom.clientHeight / 2
+
+    let xTo = tileTo.getBoundingClientRect().x + tileTo.clientWidth / 2
+    let yTo = tileTo.getBoundingClientRect().y + tileTo.clientHeight / 2
+
+    let isWallInWay = false
+
+    if (to.type === from.type) {
+      isWallInWay = false
+    } else if (!to.doorOpen && !from.doorOpen) {
+      isWallInWay = true
+    }
+
+    let hasZombiesInTile = () => {
+      let hasZombies = false
+      zombies.forEach((zombie) => {
+        if (zombie.tile === to.index) {
+          hasZombies = true
+        }
+      })
+      return hasZombies
+    }
+
+    if (
+      Math.abs(xTo - xFrom) <=
+        tileFrom.clientHeight * cardToAttackWith.range + 10 &&
+      Math.abs(yTo - yFrom) <=
+        tileFrom.clientHeight * cardToAttackWith.range + 10 &&
+      from.index !== to.index &&
+      !isWallInWay &&
+      hasZombiesInTile() &&
+      !(
+        Math.abs(xTo - xFrom) >=
+          tileFrom.clientHeight * cardToAttackWith.range - 10 &&
+        Math.abs(yTo - yFrom) >=
+          tileFrom.clientHeight * cardToAttackWith.range - 10
+      )
+    )
+      return true
+  }
+  return false
+}
 
 const isValidMoveAttempt = (from, to) => {
   let tileFrom = document.getElementById(`tile-${from.index}`)
@@ -61,26 +112,6 @@ const isValidMoveAttempt = (from, to) => {
 }
 
 const isValidDoorOpenAttempt = (from, to) => {
-  // let tileFrom = document.getElementById(`tile-${from.index}`)
-  // let tileTo = document.getElementById(`tile-${to.index}`)
-
-  // if (tileFrom && tileTo) {
-  //   let xFrom = tileFrom.getBoundingClientRect().x + tileFrom.clientWidth / 2
-  //   let yFrom = tileFrom.getBoundingClientRect().y + tileFrom.clientHeight / 2
-
-  //   let xTo = tileTo.getBoundingClientRect().x + tileTo.clientWidth / 2
-  //   let yTo = tileTo.getBoundingClientRect().y + tileTo.clientHeight / 2
-
-  //   if (
-  //     Math.abs(xTo - xFrom) <= tileFrom.clientHeight + 10 &&
-  //     Math.abs(yTo - yFrom) <= tileFrom.clientHeight + 10 &&
-  //     (from.door === true || to.door === true) &&
-  //     (from.doorOpen === false || to.doorOpen === false)
-  //   )
-  //     return true
-  // }
-  // return false
-
   let tileFrom = document.getElementById(`tile-${from.index}`)
   let tileTo = document.getElementById(`tile-${to.index}`)
 
@@ -109,6 +140,7 @@ const isValidDoorOpenAttempt = (from, to) => {
 
 function App() {
   const app = useTiles()
+  const { zombies } = useZombies()
   const {
     players,
     setActivePlayer,
@@ -124,6 +156,8 @@ function App() {
     isPlayerSearching = false,
     setIsPlayerSearching,
     decrementAction,
+    cardToAttackWith,
+    setCardToAttackWith,
   } = usePlayers()
   const {
     setTileToMoveTo,
@@ -131,6 +165,8 @@ function App() {
     setIsPlayerOpeningDoor,
     isPlayerOpeningDoor,
     setTileToOpenDoor,
+    tileToAttack,
+    setTileToAttack,
   } = useTiles()
 
   const getImage = (path) => {
@@ -262,65 +298,49 @@ function App() {
               </p>
               <br />
               <h4>HAND</h4>
-              <div className="cards">
+              <div className={`cards ${isPlayerAttacking ? 'border' : ''}`}>
                 {activePlayer.hand &&
                   activePlayer.hand.length > 0 &&
-                  activePlayer.hand.map((card, index) => {
+                  activePlayer.hand.map((card) => {
                     return (
-                      <div className="card">
-                        <button
-                          onClick={() => {
-                            // if (confirm("Are you sure you want to get rid of this card?")) {
-                            //   removeCardFromHand(card.title)
-                            // }
-                          }}
-                          className="card__delete"
-                          title="Remove card from hand"
-                        >
-                          <FontAwesomeIcon size="sm" icon="remove" />
-                        </button>
-                        <div className="card__title">{card.title}</div>
-                        <div className="card__details">
-                          <p>
-                            <div className="card__detail">
-                              <strong>Dice</strong>
-                              <span>{card.dice}</span>
-                            </div>
-                          </p>
-                          <p>
-                            <div className="card__detail">
-                              <strong>Range</strong>
-                              <span>{card.range}</span>
-                            </div>
-                          </p>
-                          <p>
-                            <div className="card__detail">
-                              <strong>Required</strong>
-                              <span>{card.required}</span>
-                            </div>
-                          </p>
-                          <p>
-                            <div className="card__detail">
-                              <strong>Damage</strong>
-                              <span>{card.damage}</span>
-                            </div>
-                          </p>
-                        </div>
-                      </div>
+                      <Card
+                        onClick={() => {
+                          if (isPlayerAttacking) {
+                            setCardToAttackWith(card)
+                          }
+                        }}
+                        card={card}
+                      />
                     )
                   })}
+
                 {activePlayer.hand && activePlayer.hand.length === 1 ? (
-                  <div className="card placeholder">
-                    <FontAwesomeIcon size="lg" icon="plus" className="icon" />
-                  </div>
+                  <>
+                    <Card placeholder />
+                    <Card placeholder />
+                    <Card placeholder />
+                    <Card placeholder />
+                  </>
+                ) : activePlayer.hand && activePlayer.hand.length === 2 ? (
+                  <>
+                    <Card placeholder />
+                    <Card placeholder />
+                    <Card placeholder />
+                  </>
+                ) : activePlayer.hand && activePlayer.hand.length === 3 ? (
+                  <>
+                    <Card placeholder />
+                    <Card placeholder />
+                  </>
+                ) : activePlayer.hand && activePlayer.hand.length === 4 ? (
+                  <Card placeholder />
                 ) : (
                   <>
-                    <div className="card placeholder">
-                      <FontAwesomeIcon size="lg" icon="plus" className="icon" />
-                    </div>
-                    <div className="card placeholder">
-                      <FontAwesomeIcon size="lg" icon="plus" className="icon" />
-                    </div>
+                    <Card placeholder />
+                    <Card placeholder />
+                    <Card placeholder />
+                    <Card placeholder />
+                    <Card placeholder />
                   </>
                 )}
               </div>
@@ -406,8 +426,15 @@ function App() {
                       ? 'You have no actions left'
                       : 'Attack'
                   }
+                  onClick={() => {
+                    if (isPlayerAttacking) {
+                      setIsPlayerAttacking(false)
+                    } else {
+                      setIsPlayerAttacking(true)
+                    }
+                  }}
                 >
-                  Attack
+                  {isPlayerAttacking ? 'Cancel' : 'Attack'}
                 </button>
                 <button
                   className="action-button btn"
@@ -453,7 +480,6 @@ function App() {
                 return a.index - b.index
               })
               .map((tile, index) => {
-                // console.log(tile)
                 if (index < 49) {
                   return (
                     <div
@@ -471,7 +497,17 @@ function App() {
                               (item) => item.index === activePlayer.tile
                             )[0],
                             tile
-                          ))
+                          )) ||
+                        (isValidAttackAttempt(
+                          tiles.filter(
+                            (item) => item.index === activePlayer.tile
+                          )[0],
+                          tile,
+                          cardToAttackWith,
+                          zombies
+                        ) &&
+                          isPlayerAttacking &&
+                          cardToAttackWith !== {})
                           ? 'selectable'
                           : ''
                       } ${tile.door ? 'door' : ''} ${
@@ -515,6 +551,24 @@ function App() {
                             }
                           } else {
                             alert("You can't open this door")
+                          }
+                        } else if (
+                          isPlayerAttacking &&
+                          cardToAttackWith !== {}
+                        ) {
+                          if (
+                            isValidAttackAttempt(
+                              tiles.filter(
+                                (item) => item.index === activePlayer.tile
+                              )[0],
+                              tile,
+                              cardToAttackWith,
+                              zombies
+                            )
+                          ) {
+                            setTileToAttack(index)
+                          } else {
+                            alert("You can't attack this tile")
                           }
                         }
                       }}

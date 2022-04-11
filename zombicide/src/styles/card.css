@@ -2,15 +2,27 @@
   display: flex;
 }
 
+.cards.border .card {
+  cursor: pointer;
+  box-shadow: 1px 1px 36px -6px #ffffff70;
+}
+
+.cards.border .card:hover {
+  transform: scale(1.03);
+}
+
 .card {
   padding: 10px;
   border: 1px solid #ffffff50;
   border-radius: 3px;
-  width: 120px;
+  width: 100px;
   background: #ffffff10;
   position: relative;
   margin-right: 12px;
-  height: 150px;
+  height: 130px;
+  transition: 0.13s ease;
+  transform: none;
+  box-shadow: none;
 }
 
 .card.placeholder {
@@ -20,12 +32,15 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: .1s;
+  transition: 0.13s ease;
+  box-shadow: none !important;
+  cursor: initial !important;
+  transform: none !important;
 }
 
 .card.placeholder > .icon {
   color: #ffffff50;
-  transition: .1s;
+  transition: 0.1s;
   display: none;
 }
 
@@ -53,7 +68,7 @@
 }
 
 .card__title {
-  font-family: "Patrick Hand";
+  font-family: 'Patrick Hand';
   font-weight: bold;
   text-align: center;
   width: 100%;
@@ -80,17 +95,18 @@
   border: 1px solid #ffffff50;
   background: #ffffff00;
   border-radius: 1px;
-  padding: 2px;
+  padding: 0px;
   width: 100%;
   height: 100%;
 }
 
 .card__detail > strong {
-  font-size: 12px;
+  font-size: 10px;
   text-align: center;
   width: 100%;
   display: block;
   font-weight: 300;
+  margin-top: -2px;
 }
 
 .card__detail > span {
@@ -98,6 +114,6 @@
   display: block;
   width: 100%;
   margin: 0;
-  margin-top: 2px;
-  font-size: 18px;
+  margin-top: -2px;
+  font-size: 16px;
 }

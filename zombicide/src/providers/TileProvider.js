@@ -11,6 +11,7 @@ export default function TileProvider({ strings, children }) {
   const [tiles, setTiles] = useState([...tileTemplates])
   const [isPlayerMoving, setIsPlayerMoving] = useState(false)
   const [tileToMoveTo, setTileToMoveTo] = useState(null)
+  const [tileToAttack, setTileToAttack] = useState(null)
   const [startTile, setStartTile] = useState(48)
   const [tileToOpenDoor, setTileToOpenDoor] = useState(null)
   const [isPlayerOpeningDoor, setIsPlayerOpeningDoor] = useState(false)
@@ -110,6 +111,12 @@ export default function TileProvider({ strings, children }) {
       setTileToMoveTo(null)
     }
   }, [tileToMoveTo])
+
+  useEffect(() => {
+    if (tileToAttack) {
+      setTileToAttack(null)
+    }
+  }, [tileToAttack])
 
   useEffect(() => {
     if (tileToOpenDoor) {
@@ -231,6 +238,8 @@ export default function TileProvider({ strings, children }) {
         setIsPlayerMoving: setIsPlayerMoving,
         tileToMoveTo: tileToMoveTo,
         setTileToMoveTo: setTileToMoveTo,
+        setTileToAttack: setTileToAttack,
+        tileToAttack: tileToAttack,
         isPlayerOpeningDoor: isPlayerOpeningDoor,
         setIsPlayerOpeningDoor: setIsPlayerOpeningDoor,
         setTileToOpenDoor: setTileToOpenDoor,

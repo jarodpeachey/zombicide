@@ -4,15 +4,20 @@ import allPlayers from '../data/players.json'
 import { createPlayerElement } from '../utils/createPlayerElement'
 import shuffle from '../utils/shuffle'
 import { useTiles } from './TileProvider'
+import { useZombies } from './ZombiesProvider';
 
 export const PlayersContext = createContext({})
 
 export default function PlayersProvider({ strings, children }) {
   const tilesProvider = useTiles()
+  const zombiesProvider = useZombies()
   const [players, setPlayers] = useState([])
   const [isPlayerMoving, setIsPlayerMoving] = useState(false)
+  const [isPlayerAttacking, setIsPlayerAttacking] = useState(false)
   const [activePlayerIndex, setActivePlayerIndex] = useState(0)
   const [activePlayer, setActivePlayer] = useState({})
+  const [cardToAttackWith, setCardToAttackWith] = useState({})
+  const [diceToDisplay, setDiceToDisplay] = useState([])
 
   ///////////////////////////////////////////////////
   ////////// CREATE PLAYERS FROM DATA FILE //////////
@@ -49,7 +54,6 @@ export default function PlayersProvider({ strings, children }) {
   useEffect(() => {
     if (players && players.length > 0) {
       // SET ACTIVE PLAYER
-      // console.log('SETTING ACTIVE PLAYER FROM LINE 129')
       // setActivePlayer(players[activePlayerIndex])
 
       players.forEach((player) => {
@@ -57,6 +61,92 @@ export default function PlayersProvider({ strings, children }) {
       })
     }
   }, [players])
+
+  ///////////////////////////////////////////////////
+  ////////////// UPDATE ACTIVE PLAYER ///////////////
+  ///////////////////////////////////////////////////
+  useEffect(() => {
+    let newPlayer = { ...players[activePlayerIndex], actions: 4 }
+    if (players.length > 0) {
+      setActivePlayer(newPlayer)
+    }
+  }, [activePlayerIndex])
+
+  useEffect(() => {
+    if (isPlayerMoving) {
+      tilesProvider.setIsPlayerMoving(true)
+      // tilesProvider.setTileToMoveFrom(activePlayer.tile)
+    } else {
+      tilesProvider.setIsPlayerMoving(false)
+      tilesProvider.setTileToMoveTo(null)
+    }
+  }, [isPlayerMoving])
+
+  useEffect(() => {
+    if (tilesProvider.tileToMoveTo) {
+      let newPlayers = [...players]
+      let updatedPlayer = {
+        ...activePlayer,
+        tile: tilesProvider.tileToMoveTo,
+        actions: activePlayer.actions - 1,
+      }
+
+      newPlayers.splice(activePlayerIndex, 1, updatedPlayer)
+
+      setPlayers(newPlayers)
+
+      setIsPlayerMoving(false)
+      setActivePlayer(updatedPlayer)
+    }
+  }, [tilesProvider.tileToMoveTo])
+
+  useEffect(() => {
+    if (tilesProvider.tileToAttack) {
+      let zombiesInTile = zombiesProvider.zombies.filter(item => item.tile === tilesProvider.tileToAttack)
+
+      let dice = []
+
+      for (let i = 0; i < cardToAttackWith.dice; i++) {
+        let number = Math.floor(Math.random() * (6 - 1 + 1)) + 1
+
+        dice.push(number)
+      }
+
+      setDiceToDisplay(dice)
+    }
+  }, [tilesProvider.tileToAttack])
+
+  useEffect(() => {
+    if (tilesProvider.tileToOpenDoor) {
+      let newPlayers = [...players]
+      let updatedPlayer = {
+        ...activePlayer,
+        actions: activePlayer.actions - 1,
+      }
+
+      newPlayers.splice(activePlayerIndex, 1, updatedPlayer)
+
+      setPlayers(newPlayers)
+
+      // setIsPlayerMoving(false)
+      console.log('SETTING ACTIVE PLAYER FROM LINE 149')
+      setActivePlayer(updatedPlayer)
+    }
+  }, [tilesProvider.tileToOpenDoor])
+
+  useEffect(() => {
+    if (cardToAttackWith && isPlayerAttacking) {
+      
+    }
+  },[cardToAttackWith])
+
+  useEffect(() => {
+    if (isPlayerAttacking) {
+
+    } else {
+      setCardToAttackWith({})
+    }
+  }, [isPlayerAttacking])
 
   ///////////////////////////////////////////////////
   ///////////////// END ROUND LOGIC /////////////////
@@ -86,57 +176,16 @@ export default function PlayersProvider({ strings, children }) {
     setPlayers(newPlayers)
   }
 
-  ///////////////////////////////////////////////////
-  ////////////// UPDATE ACTIVE PLAYER ///////////////
-  ///////////////////////////////////////////////////
-  useEffect(() => {
-    console.log('ACTIVE PLAYER INDEX CHANGED')
-    let newPlayer = { ...players[activePlayerIndex], actions: 4 }
-    if (players.length > 0) {
-      console.log('SETTING ACTIVE PLAYER FROM LINE 96')
-      setActivePlayer(newPlayer)
-    }
-  }, [activePlayerIndex])
-
-  useEffect(() => {
-    console.log('NEW ACTIVE PLAYER: ', activePlayer)
-  }, [activePlayer])
-
-  useEffect(() => {
-    if (isPlayerMoving) {
-      tilesProvider.setIsPlayerMoving(true)
-      // tilesProvider.setTileToMoveFrom(activePlayer.tile)
-    } else {
-      tilesProvider.setIsPlayerMoving(false)
-      tilesProvider.setTileToMoveTo(null)
-    }
-  }, [isPlayerMoving])
-
-  useEffect(() => {
-    if (tilesProvider.tileToMoveTo) {
-      let newPlayers = [...players]
-      let updatedPlayer = {
-        ...activePlayer,
-        tile: tilesProvider.tileToMoveTo,
-        actions: activePlayer.actions - 1,
-      }
-
-      newPlayers.splice(activePlayerIndex, 1, updatedPlayer)
-
-      setPlayers(newPlayers)
-
-      setIsPlayerMoving(false)
-      console.log('SETTING ACTIVE PLAYER FROM LINE 129')
-      setActivePlayer(updatedPlayer)
-    }
-  }, [tilesProvider.tileToMoveTo])
-
   return (
     <PlayersContext.Provider
       value={{
         players: players,
         isPlayerMoving: isPlayerMoving,
         setIsPlayerMoving: setIsPlayerMoving,
+        isPlayerAttacking: isPlayerAttacking,
+        setIsPlayerAttacking: setIsPlayerAttacking,
+        cardToAttackWith: cardToAttackWith,
+        setCardToAttackWith: setCardToAttackWith,
         activePlayer: activePlayer,
         setActivePlayer: setActivePlayer,
         activePlayerIndex: activePlayerIndex,

@@ -19,7 +19,7 @@ export default function ZombiesProvider({ strings, children }) {
 
     items.forEach((tileToSpawnIn, index) => {
       setTimeout(() => {
-        let number = Math.floor(Math.random() * (8 - 1 + 1)) + 1
+        let number = Math.floor(Math.random() * (9 - 1 + 1)) + 1
         let type = ''
         let goAgain = Math.floor(Math.random() * (3 - 1 + 1)) + 1
 
