@@ -1,14 +1,14 @@
 [
   {
     "type": "walker",
-    "health": "1"
+    "health": 1
   },
   {
     "type": "runner",
-    "health": "1"
+    "health": 1
   },
   {
     "type": "fattie",
-    "health": "2"
+    "health": 2
   }
 ]

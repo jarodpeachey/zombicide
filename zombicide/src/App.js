@@ -7,6 +7,7 @@ import './styles/control-panel.css'
 import './styles/tiles.css'
 import './styles/players.css'
 import './styles/zombies.css'
+import './styles/dice.css'
 import './styles/card.css'
 import building_1 from './images/building_1.JPG'
 import building_2 from './images/building_2.JPG'
@@ -158,6 +159,9 @@ function App() {
     decrementAction,
     cardToAttackWith,
     setCardToAttackWith,
+    diceToDisplay,
+    messageToDisplay,
+    setMessageToDisplay,
   } = usePlayers()
   const {
     setTileToMoveTo,
@@ -189,91 +193,23 @@ function App() {
     if (path === 'triple_right') return road_triple_right
   }
 
-  // useEffect(() => {
-  //   players.forEach((item) => {
-  //     let newItem = document.getElementById(`${item.name.toLowerCase()}`)
-
-  //     newItem.addEventListener('click', () => {
-  //       setPlayerToMove(item)
-  //     })
-  //   })
-  // }, [])
-
-  const calculateLeft = (player) => {
-    // if (name !== '') {
-    const tileElement = document.getElementById(`tile-${player.tile}`)
-    const parentElement = document.getElementById(`tiles`)
-
-    if (parentElement && tileElement) {
-      let top = 0
-      let left = 0
-
-      if (tileElement) {
-        top = tileElement.getBoundingClientRect().top
-        left = tileElement.getBoundingClientRect().left
-      }
-
-      return left || 0
-    } else {
-      return 0
-    }
-  }
-  const calculateTop = (player) => {
-    const tileElement = document.getElementById(`tile-${player.tile}`)
-    const parentElement = document.getElementById(`tiles`)
-
-    if (parentElement && tileElement) {
-      let top = 0
-      let left = 0
-
-      if (tileElement) {
-        top = tileElement.getBoundingClientRect().top
-        left = tileElement.getBoundingClientRect().left
-      }
-
-      return top || 0
-    } else {
-      return 0
-    }
-  }
-
-  // useEffect(() => {
-  //   players.forEach((player) => {
-  //     document.getElementById(
-  //       `${player.name.toLowerCase()}`
-  //     ).style.left = `${calculateLeft(player)}px`
-  //     document.getElementById(
-  //       `${player.name.toLowerCase()}`
-  //     ).style.top = `${calculateTop(player)}px`
-  //   })
-  // }, [players])
-
   return (
     <>
+      <div className="info">
+        {messageToDisplay && messageToDisplay.length > 0 && (
+          <p>{messageToDisplay}</p>
+        )}
+        {diceToDisplay.length > 0 && (
+          <div style={{ display: 'flex', alignItems: 'center' }}>
+            <p style={{ margin: 0, marginRight: 8 }}>Dice Rolled: </p>
+            {diceToDisplay.map((die) => {
+              console.log('DIE: ', die)
+              return <div className={`die ${die.type}`}>{die.value}</div>
+            })}
+          </div>
+        )}
+      </div>
       <div className="game" id="game">
-        {/* {players &&
-          players.length > 0 &&
-          players.map((player) => {
-            return (
-              <div
-                style={{
-                  left: calculateLeft(player),
-                  top: calculateTop(player),
-                }}
-                id={player.name.toLowerCase()}
-                className={`player ${
-                  activePlayer && activePlayer.name === player.name
-                    ? 'moving'
-                    : ''
-                }`}
-                onClick={() => {
-                  setActivePlayer(player)
-                }}
-              >
-                {player.name.charAt(0)}
-              </div>
-            )
-          })} */}
         {activePlayer && (
           <div className="control-panel">
             <div className="control-panel__inner">
@@ -306,6 +242,7 @@ function App() {
                       <Card
                         onClick={() => {
                           if (isPlayerAttacking) {
+                            setMessageToDisplay('Select a tile to attack')
                             setCardToAttackWith(card)
                           }
                         }}
@@ -365,8 +302,10 @@ function App() {
                   onClick={() => {
                     if (isPlayerMoving) {
                       setIsPlayerMoving(false)
+                      setMessageToDisplay('Choose your next action')
                     } else {
                       setIsPlayerMoving(true)
+                      setMessageToDisplay('Select a tile to move to')
                     }
                   }}
                 >
@@ -390,8 +329,10 @@ function App() {
                   onClick={() => {
                     if (isPlayerOpeningDoor) {
                       setIsPlayerOpeningDoor(false)
+                      setMessageToDisplay('Choose your next action')
                     } else {
                       setIsPlayerOpeningDoor(true)
+                      setMessageToDisplay('Select a door to open')
                     }
                   }}
                 >
@@ -429,8 +370,10 @@ function App() {
                   onClick={() => {
                     if (isPlayerAttacking) {
                       setIsPlayerAttacking(false)
+                      setMessageToDisplay('Choose your next action')
                     } else {
                       setIsPlayerAttacking(true)
+                      setMessageToDisplay('Select a card to attack with')
                     }
                   }}
                 >
@@ -534,7 +477,12 @@ function App() {
                               setTileToMoveTo(index)
                             }
                           } else {
-                            alert('You can only move 1 space at a time')
+                            setMessageToDisplay(
+                              'OOPS. You can only move 1 space at a time'
+                            )
+                            setTimeout(() => {
+                              setMessageToDisplay('Select a tile to move to')
+                            }, 1000)
                           }
                         } else if (isPlayerOpeningDoor) {
                           if (
@@ -547,10 +495,14 @@ function App() {
                           ) {
                             if (confirm(`Do you want to open this door?`)) {
                               setTileToOpenDoor(index)
-                              decrementAction()
                             }
                           } else {
-                            alert("You can't open this door")
+                            setMessageToDisplay(
+                              "OOPS. You can't open this door"
+                            )
+                            setTimeout(() => {
+                              setMessageToDisplay('Select a door to open')
+                            }, 1000)
                           }
                         } else if (
                           isPlayerAttacking &&
@@ -568,7 +520,12 @@ function App() {
                           ) {
                             setTileToAttack(index)
                           } else {
-                            alert("You can't attack this tile")
+                            setMessageToDisplay(
+                              "OOPS. You can't attack this tile"
+                            )
+                            setTimeout(() => {
+                              setMessageToDisplay('Select a tile to attack')
+                            }, 1000)
                           }
                         }
                       }}

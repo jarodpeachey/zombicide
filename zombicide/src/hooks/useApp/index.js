@@ -51,10 +51,6 @@ export const AppProvider = ({ children }) => {
     return dispatch(actions.initializeTiles(initTiles()))
   }
 
-  useEffect(() => {
-    // console.log(app.tiles)
-  }, [app.tiles])
-
   return (
     <AppContext.Provider value={{ ...actions, ...app, init: init }}>
       {children}

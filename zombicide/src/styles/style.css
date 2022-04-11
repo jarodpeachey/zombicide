@@ -3,6 +3,10 @@
 
 :root {
   --padding: 64px;
+  --color--blue: rgb(151, 151, 193);
+  --color--green: rgb(126, 187, 140);
+  --color--yellow: rgb(217, 217, 134);
+  --color--red: rgb(198, 72, 72);
 }
 
 * {
@@ -108,4 +112,23 @@ h4 {
 
 .btn:not(:disabled):hover {
   filter: brightness(80%);
+}
+
+.info {
+  padding: 16px;
+  backdrop-filter: blur(5px);
+  border-radius: 6px;
+  padding: 0px 24px;
+  border: 2px solid #ffffff10;
+  width: 100%;
+  margin: 24px 64px 0px;
+  width: calc(100% - 128px);
+  height: 52px;
+  display: flex;
+  align-items: center;
+}
+
+.info p {
+  margin-bottom: 0;
+  margin: 0;
 }

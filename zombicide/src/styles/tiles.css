@@ -20,6 +20,7 @@
     -8px -8px 48px 0 rgba(21, 21, 34, 0.3), 0px 0px 120px -20px #00000090;
   /* overflow: hidden; */
   /* width: fit-content; */
+  margin-top: 24px;
 }
 
 .tile {

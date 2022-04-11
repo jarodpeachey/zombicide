@@ -11,7 +11,6 @@ const Card = ({ placeholder, card, cards = [], onClick }) => {
   } else {
     return (
       <div className="card" onClick={(e) => {
-        console.log(e.target);
         if (!e.target.classList.contains('card__delete')) {
           onClick()
         }

@@ -7,7 +7,7 @@ export const createZombieElement = (zombies, zombieToCreate) => {
   //   createZombieElement(zombies, { ...zombieToCreate, type: 'walker' })
   // }
 
-  if (zombieToCreate.type !== '') {
+  if (zombieToCreate.type !== '' && zombieToCreate) {
     let zombie = document.createElement('div')
     zombie.className = `zombie ${zombieToCreate.type}`
     // zombie.id = `zombie-${zombieToCreate.id}`

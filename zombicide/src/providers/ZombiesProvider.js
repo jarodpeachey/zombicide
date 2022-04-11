@@ -122,11 +122,20 @@ export default function ZombiesProvider({ strings, children }) {
     })
   }, [zombies])
 
+  const killZombie = (zombieToKill) => {
+    console.log("KILLING ZOMBIE: ", zombieToKill);
+    // let newZombies = [...zombies]
+    // newZombies.filter(zombie => zombie.id !== zombieToKill.id)
+
+    setZombies([...zombies.filter(zombie => zombie.id !== zombieToKill.id)])
+  }
+
   return (
     <ZombiesContext.Provider
       value={{
         zombies: zombies,
         createZombies: createZombies,
+        killZombie: killZombie
       }}
     >
       {children}

@@ -23,7 +23,6 @@ const Player = ({ player, tile: parentTile }) => {
     let top = 0
     // let playersInTile = playersProvider.players
 
-    // console.log(playersInTile)
 
     return {
       left: `${left}px`,
@@ -45,7 +44,6 @@ const Player = ({ player, tile: parentTile }) => {
   if (name !== '') {
     const playerElement = document.getElementById(`${name.toLowerCase()}`)
     const tileElement = document.getElementById(`tile-${tile}`)
-    // console.log(tileElement)
     let top = tileElement.getBoundingClientRect().top
     let left = tileElement.getBoundingClientRect().left
     // let playerPosition = calculatePlayerPosition()
