@@ -111,6 +111,7 @@ export default function PlayersProvider({ strings, children }) {
 
       let dice = []
       let attackDiceToDisplay = []
+      let kills = 0
 
       for (let i = 0; i < cardToAttackWith.dice; i++) {
         let number = Math.floor(Math.random() * (6 - 1 + 1)) + 1
@@ -134,12 +135,15 @@ export default function PlayersProvider({ strings, children }) {
           if (walkers.length > 0) {
             zombiesProvider.killZombie(walkers[0])
             hit = true
+            kills += 1
           } else if (fatties.length > 0 && cardToAttackWith.damage >= 2) {
             zombiesProvider.killZombie(fatties[0])
             hit = true
+            kills += 1
           } else if (runners.length > 0) {
             zombiesProvider.killZombie(runners[0])
             hit = true
+            kills += 1
           }
         }
 
@@ -148,11 +152,7 @@ export default function PlayersProvider({ strings, children }) {
 
       setDiceToDisplay(attackDiceToDisplay)
       setMessageToDisplay(`You rolled ${dice.length} dice to attack: `)
-      setTimeout(() => {
-        setMessageToDisplay('Choose your next action')
-        setDiceToDisplay([])
-      }, 3000)
-      decrementAction()
+      updatePlayerStats(true, kills)
       setIsPlayerAttacking(false)
       setCardToAttackWith({})
       // setDiceToDisplay(null)
@@ -161,7 +161,7 @@ export default function PlayersProvider({ strings, children }) {
 
   useEffect(() => {
     if (tilesProvider.tileToOpenDoor) {
-      decrementAction()
+      updatePlayerStats(true, 0)
       setMessageToDisplay('Choose your next action')
     }
   }, [tilesProvider.tileToOpenDoor])
@@ -194,11 +194,14 @@ export default function PlayersProvider({ strings, children }) {
   ///////////////////////////////////////////////////
   ///////// DECREMENT ACTIVE PLAYER ACTIONS /////////
   ///////////////////////////////////////////////////
-  const decrementAction = () => {
+  const updatePlayerStats = (actions = false, kills = 0) => {
+    console.log("UPDATING PLAYER KILLS: ", kills);
+    
     let newPlayers = [...players]
     let updatedPlayer = {
       ...activePlayer,
-      actions: activePlayer.actions - 1,
+      actions: actions ? activePlayer.actions - 1 : activePlayer.actions,
+      kills: activePlayer.kills + kills
     }
 
     newPlayers.splice(activePlayerIndex, 1, updatedPlayer)
@@ -207,7 +210,10 @@ export default function PlayersProvider({ strings, children }) {
 
     setIsPlayerMoving(false)
     setActivePlayer(updatedPlayer)
-    // setMessageToDisplay('Choose your next action')
+  }
+
+  const clearMessages = () => {
+    setDiceToDisplay([])
   }
 
   return (
@@ -225,10 +231,11 @@ export default function PlayersProvider({ strings, children }) {
         activePlayerIndex: activePlayerIndex,
         setActivePlayerIndex: setActivePlayerIndex,
         endRound: endRound,
-        decrementAction: decrementAction,
+        updatePlayerStats: updatePlayerStats,
         diceToDisplay: diceToDisplay,
         messageToDisplay: messageToDisplay,
         setMessageToDisplay: setMessageToDisplay,
+        clearMessages: clearMessages
       }}
     >
       {children}

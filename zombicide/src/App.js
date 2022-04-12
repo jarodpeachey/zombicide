@@ -149,6 +149,7 @@ function App() {
     setActivePlayerIndex,
     endRound,
     playerToMove,
+    clearMessages,
     activePlayer,
     isPlayerMoving,
     setIsPlayerMoving,
@@ -299,6 +300,7 @@ function App() {
                       : 'Move'
                   }
                   onClick={() => {
+                    clearMessages()
                     if (isPlayerMoving) {
                       setIsPlayerMoving(false)
                       setMessageToDisplay('Choose your next action')
@@ -326,6 +328,7 @@ function App() {
                       : 'Open Door'
                   }
                   onClick={() => {
+                    clearMessages()
                     if (isPlayerOpeningDoor) {
                       setIsPlayerOpeningDoor(false)
                       setMessageToDisplay('Choose your next action')
@@ -367,6 +370,7 @@ function App() {
                       : 'Attack'
                   }
                   onClick={() => {
+                    clearMessages()
                     if (isPlayerAttacking) {
                       setIsPlayerAttacking(false)
                       setMessageToDisplay('Choose your next action')
