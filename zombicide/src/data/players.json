@@ -12,7 +12,38 @@
         "required": 4,
         "silent": false,
         "door": false,
-        "quantity": 8
+        "quantity": 8,
+        "start": true
+      },
+      {
+        "title": "Rifle",
+        "range": 3,
+        "dice": 1,
+        "damage": 1,
+        "required": 3,
+        "silent": false,
+        "door": false,
+        "quantity": 6
+      },
+      {
+        "title": "Shotgun",
+        "range": 2,
+        "dice": 2,
+        "damage": 2,
+        "required": 4,
+        "silent": false,
+        "door": false,
+        "quantity": 6
+      },
+      {
+        "title": "Sawed Off",
+        "range": 2,
+        "dice": 2,
+        "damage": 1,
+        "required": 3,
+        "silent": false,
+        "door": false,
+        "quantity": 4
       }
     ],
     "backpack": [],
@@ -33,7 +64,38 @@
         "required": 4,
         "silent": false,
         "door": false,
-        "quantity": 8
+        "quantity": 8,
+        "start": true
+      },
+      {
+        "title": "Rifle",
+        "range": 3,
+        "dice": 1,
+        "damage": 1,
+        "required": 3,
+        "silent": false,
+        "door": false,
+        "quantity": 6
+      },
+      {
+        "title": "Shotgun",
+        "range": 2,
+        "dice": 2,
+        "damage": 2,
+        "required": 4,
+        "silent": false,
+        "door": false,
+        "quantity": 6
+      },
+      {
+        "title": "Sawed Off",
+        "range": 2,
+        "dice": 2,
+        "damage": 1,
+        "required": 3,
+        "silent": false,
+        "door": false,
+        "quantity": 4
       }
     ],
     "backpack": [],
@@ -54,7 +116,38 @@
         "required": 4,
         "silent": false,
         "door": false,
-        "quantity": 8
+        "quantity": 8,
+        "start": true
+      },
+      {
+        "title": "Rifle",
+        "range": 3,
+        "dice": 1,
+        "damage": 1,
+        "required": 3,
+        "silent": false,
+        "door": false,
+        "quantity": 6
+      },
+      {
+        "title": "Shotgun",
+        "range": 2,
+        "dice": 2,
+        "damage": 2,
+        "required": 4,
+        "silent": false,
+        "door": false,
+        "quantity": 6
+      },
+      {
+        "title": "Sawed Off",
+        "range": 2,
+        "dice": 2,
+        "damage": 1,
+        "required": 3,
+        "silent": false,
+        "door": false,
+        "quantity": 4
       }
     ],
     "backpack": [],
@@ -75,7 +168,38 @@
         "required": 4,
         "silent": false,
         "door": false,
-        "quantity": 8
+        "quantity": 8,
+        "start": true
+      },
+      {
+        "title": "Rifle",
+        "range": 3,
+        "dice": 1,
+        "damage": 1,
+        "required": 3,
+        "silent": false,
+        "door": false,
+        "quantity": 6
+      },
+      {
+        "title": "Shotgun",
+        "range": 2,
+        "dice": 2,
+        "damage": 2,
+        "required": 4,
+        "silent": false,
+        "door": false,
+        "quantity": 6
+      },
+      {
+        "title": "Sawed Off",
+        "range": 2,
+        "dice": 2,
+        "damage": 1,
+        "required": 3,
+        "silent": false,
+        "door": false,
+        "quantity": 4
       }
     ],
     "backpack": [],
@@ -96,7 +220,38 @@
         "required": 4,
         "silent": false,
         "door": false,
-        "quantity": 8
+        "quantity": 8,
+        "start": true
+      },
+      {
+        "title": "Rifle",
+        "range": 3,
+        "dice": 1,
+        "damage": 1,
+        "required": 3,
+        "silent": false,
+        "door": false,
+        "quantity": 6
+      },
+      {
+        "title": "Shotgun",
+        "range": 2,
+        "dice": 2,
+        "damage": 2,
+        "required": 4,
+        "silent": false,
+        "door": false,
+        "quantity": 6
+      },
+      {
+        "title": "Sawed Off",
+        "range": 2,
+        "dice": 2,
+        "damage": 1,
+        "required": 3,
+        "silent": false,
+        "door": false,
+        "quantity": 4
       }
     ],
     "backpack": [],

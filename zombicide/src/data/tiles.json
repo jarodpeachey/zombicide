@@ -7,7 +7,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 0,
@@ -17,7 +18,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 0,
@@ -27,7 +29,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 0,
@@ -37,7 +40,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 0,
@@ -47,7 +51,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 0,
@@ -57,7 +62,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 0,
@@ -67,7 +73,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
 
   {
@@ -78,7 +85,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 1,
@@ -88,7 +96,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 1,
@@ -98,7 +107,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 1,
@@ -108,7 +118,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 1,
@@ -118,7 +129,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 1,
@@ -129,6 +141,7 @@
     "start": false,
     "exit": false,
     "spawn": false,
+    "inOpenBuilding": false,
     "door": true,
     "doorOpen": false,
     "doorPlacement": "left"
@@ -141,7 +154,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
 
   {
@@ -152,7 +166,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 2,
@@ -162,7 +177,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 2,
@@ -172,7 +188,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 2,
@@ -182,7 +199,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 2,
@@ -192,7 +210,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 2,
@@ -202,7 +221,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 2,
@@ -212,7 +232,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
 
   {
@@ -223,7 +244,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 3,
@@ -233,7 +255,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 3,
@@ -243,7 +266,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 3,
@@ -253,7 +277,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 3,
@@ -263,7 +288,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 3,
@@ -273,7 +299,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 3,
@@ -283,7 +310,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
 
   {
@@ -294,7 +322,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 4,
@@ -304,7 +333,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 4,
@@ -314,7 +344,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 4,
@@ -324,7 +355,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 4,
@@ -334,7 +366,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 4,
@@ -344,7 +377,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 4,
@@ -354,7 +388,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
 
   {
@@ -365,7 +400,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 5,
@@ -375,7 +411,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 5,
@@ -385,7 +422,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 5,
@@ -395,7 +433,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 5,
@@ -405,7 +444,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 5,
@@ -415,7 +455,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 5,
@@ -426,6 +467,7 @@
     "start": false,
     "exit": false,
     "spawn": false,
+    "inOpenBuilding": false,
     "door": true,
     "doorOpen": false,
     "doorPlacement": "bottom"
@@ -439,7 +481,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 6,
@@ -449,7 +492,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 6,
@@ -459,7 +503,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 6,
@@ -470,6 +515,7 @@
     "start": false,
     "exit": false,
     "spawn": false,
+    "inOpenBuilding": false,
     "door": true,
     "doorOpen": false,
     "doorPlacement": "right"
@@ -482,7 +528,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 6,
@@ -492,7 +539,8 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   },
   {
     "row": 6,
@@ -502,6 +550,7 @@
     "characters": [],
     "start": false,
     "exit": false,
-    "spawn": false
+    "spawn": false,
+    "inOpenBuilding": false
   }
 ]

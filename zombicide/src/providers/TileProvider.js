@@ -228,6 +228,25 @@ export default function TileProvider({ strings, children }) {
     }
   }
 
+  useEffect(() => {
+    if (buildingTilesAlreadyDiscovered.length > 0) {
+      let newArray = [
+        ...tiles.filter(
+          (item) => !buildingTilesAlreadyDiscovered.includes(item.index)
+        ),
+      ]
+
+      tiles.forEach((tile) => {
+        if (buildingTilesAlreadyDiscovered.includes(tile.index)) {
+          newArray.push({ ...tile, inOpenBuilding: true })
+        }
+      })
+
+      setTiles(newArray)
+      console.log('TILES: ', newArray)
+    }
+  }, [buildingTilesAlreadyDiscovered])
+
   return (
     <TileContext.Provider
       value={{

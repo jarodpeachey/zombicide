@@ -63,14 +63,14 @@
   background: transparent;
   right: 0px;
   top: 0px;
-  padding: 5px 8px;
+  padding: 8px 8px;
   cursor: pointer;
 }
 
 .card__title {
   font-family: 'Patrick Hand';
   font-weight: bold;
-  text-align: center;
+  text-align: left;
   width: 100%;
   margin-bottom: 8px;
   /* padding-bottom: 8px; */

@@ -113,6 +113,7 @@ export default function ZombiesProvider({ strings, children }) {
   }, [zombiesToGoAgain])
 
   useEffect(() => {
+    console.log("ZOMBIES: ", zombies);
     let things = document.querySelectorAll('.zombie')
 
     things.forEach((item) => item.remove())
@@ -122,12 +123,18 @@ export default function ZombiesProvider({ strings, children }) {
     })
   }, [zombies])
 
-  const killZombie = (zombieToKill) => {
-    console.log("KILLING ZOMBIE: ", zombieToKill);
-    // let newZombies = [...zombies]
-    // newZombies.filter(zombie => zombie.id !== zombieToKill.id)
+  const killZombies = (zombiesToKill) => {
+    console.log('KILLING ZOMBIES: ', zombiesToKill)
+    let ids = []
 
-    setZombies([...zombies.filter(zombie => zombie.id !== zombieToKill.id)])
+    // LOOP THROUGH ZOMBIES AND KILL
+    zombiesToKill.forEach((zombie) => {
+      ids.push(zombie.id)
+    })
+
+    console.log(ids);
+
+    setZombies([...zombies.filter((zombie) => !ids.includes(zombie.id))])
   }
 
   return (
@@ -135,7 +142,7 @@ export default function ZombiesProvider({ strings, children }) {
       value={{
         zombies: zombies,
         createZombies: createZombies,
-        killZombie: killZombie
+        killZombies: killZombies,
       }}
     >
       {children}

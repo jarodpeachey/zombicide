@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: center;
   border-radius: 2px;
-  margin: 6px;
+  margin-left: 6px;
 }
 
 .die.hit {

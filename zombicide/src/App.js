@@ -44,7 +44,7 @@ const isValidAttackAttempt = (from, to, cardToAttackWith, zombies) => {
 
     if (to.type === from.type) {
       isWallInWay = false
-    } else if (!to.doorOpen && !from.doorOpen) {
+    } else if (!to.doorOpen && !from.doorOpen && !to.inOpenBuilding) {
       isWallInWay = true
     }
 
@@ -68,9 +68,9 @@ const isValidAttackAttempt = (from, to, cardToAttackWith, zombies) => {
       hasZombiesInTile() &&
       !(
         Math.abs(xTo - xFrom) >=
-          tileFrom.clientHeight * cardToAttackWith.range - 10 &&
+          tileFrom.clientHeight - 10 &&
         Math.abs(yTo - yFrom) >=
-          tileFrom.clientHeight * cardToAttackWith.range - 10
+          tileFrom.clientHeight - 10
       )
     )
       return true
@@ -203,7 +203,6 @@ function App() {
         {diceToDisplay.length > 0 && (
           <div style={{ display: 'flex', alignItems: 'center' }}>
             {diceToDisplay.map((die) => {
-              console.log('DIE: ', die)
               return <div className={`die ${die.type}`}>{die.value}</div>
             })}
           </div>
@@ -242,7 +241,7 @@ function App() {
                       <Card
                         onClick={() => {
                           if (isPlayerAttacking) {
-                            setMessageToDisplay('Select a tile to attack')
+                            setMessageToDisplay(`Select a tile to attack with ${card.title}`)
                             setCardToAttackWith(card)
                           }
                         }}
@@ -521,7 +520,7 @@ function App() {
                               zombies
                             )
                           ) {
-                             if (confirm(`Do you want to attack this tile?`)) {
+                            if (confirm(`Do you want to attack this tile?`)) {
                               setTileToAttack(index)
                             }
                           } else {

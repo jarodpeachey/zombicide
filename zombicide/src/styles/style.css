@@ -132,3 +132,30 @@ h4 {
   margin-bottom: 0;
   margin: 0;
 }
+
+.toast {
+  font-family: "Permanent Marker";
+  background: black;
+  color: white;
+}
+
+.toast [role="status"] {
+  z-index: 9999;
+}
+
+.toast::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: -12px;
+  right: -12px;
+  height: calc(100% + 24px);
+  width: calc(100% + 24px);
+  background: #000000;
+  filter: blur(15px);
+  z-index: -1;
+}
+
+.toast div:first-child {
+  display: none !important;
+}
